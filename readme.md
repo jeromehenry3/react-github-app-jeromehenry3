@@ -83,5 +83,5 @@ axios.get('https://api.github.com/me', {
 * Quand on est sur la page pour voir le contenu d'un repo (dossiers fichiers), récupérer le contenu du readme et essayer de l'afficher (des libraires existent pour convertir du markdown et l'afficher)
 * rajouter un bouton sur chaque résultat de recherche pour ouvrir ce repo directement sur github plutôt que dans notre app.
 
-TOUT ce qui n'est pas précisé est libre, donc faites vous plaisir !!
+## TOUT ce qui n'est pas précisé est libre, donc faites vous plaisir !!
 
