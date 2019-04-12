@@ -32,7 +32,7 @@ Si l'user est connecté, cette page affiche :
 * Le profil de l'user
 * Un bouton pour se déconnecter
 * Les derniers repos de l'user (je peux cliquer dessus pour voir le contenu)
-* Les repos mis en favoris
+* Les repos mis en favoris (je peux cliquer dessus pour voir le contenu)
 
 ### Search
 
@@ -45,7 +45,6 @@ Juste une page présentant le site avec un petit texte et pourquoi pas une / des
 **Demandes client**
 
 * J'aimerais que l'interface dispose d'une indication de loading lors des requêtes
-* Une page "A propos" est toujours à propos, donc j'en voudrais une
 * Chaque page de repo doit afficher son titre, et la liste de ses dossiers / fichiers
 * Chaque page de repo permet de le mettre / retirer en favori
 * Quand je me déconnecte je veux que seul les menu "welcome" et "à propos" soient visibles
@@ -54,10 +53,12 @@ Juste une page présentant le site avec un petit texte et pourquoi pas une / des
 ### Connexion avec un token
 
 Github permet à chaque user de se créer un token personnel. C'est un code, unique et personnel, qui permet de se logger sans avoir à saisir mail ou mdp.
+
 Pour créer le votre: https://github.com/settings/tokens
+
 Une fois que notre application aura en mémoire notre token (après l'avoir saisi dans un formulaire), il suffit de le renseigner pour chaque requête que nous feront, dans le header de la requête, et nous serons automatiquement considérés comme authentifiés.
 
-Exemple pour obtenir les infos de l'user connecté:
+**Exemple pour obtenir les infos de l'user connecté:**
 
 ```javascript
 axios.get('https://api.github.com/me', {
@@ -79,6 +80,8 @@ axios.get('https://api.github.com/me', {
 
 ## Bonus
 
-* quand on est sur la page poru voir le contenu d'un repo (dossiers fichiers), récupérer le contenu du readme et essayer de l'afficher (des libraires existent pour convertir du markdown et l'afficher)
-* rajouter un bouton sur chaque résultat de recherche pour ouvrir ce repo direct sur github
+* Quand on est sur la page pour voir le contenu d'un repo (dossiers fichiers), récupérer le contenu du readme et essayer de l'afficher (des libraires existent pour convertir du markdown et l'afficher)
+* rajouter un bouton sur chaque résultat de recherche pour ouvrir ce repo directement sur github plutôt que dans notre app.
+
+TOUT ce qui n'est pas précisé est libre, donc faites vous plaisir !!
 
