@@ -1,13 +1,16 @@
 /*
  * Npm import
  */
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 
 /*
  * Local import
  */
 // Reducer
 import reducer from 'src/store/reducer';
+import ajaxMiddleware from './ajaxMiddleware';
+
+const appliedMiddlewares = applyMiddleware(ajaxMiddleware);
 
 /*
  * Code
@@ -17,8 +20,10 @@ if (window.devToolsExtension) {
   devTools.push(window.devToolsExtension());
 }
 
+const enhancers = compose (appliedMiddlewares, ...devTools);
+
 // createStore
-const store = createStore(reducer, ...devTools);
+const store = createStore(reducer, enhancers);
 
 /*
  * Export

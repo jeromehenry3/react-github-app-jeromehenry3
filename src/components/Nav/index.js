@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Menu } from 'semantic-ui-react';
 
+import './styles.scss';
 
 const Nav = ({ view, changeView }) => {
-  const handleNavClick = (event) => {
-    event.preventDefault();
-    console.log(event);
-    console.log(changeView);
+  const handleNavClick = ViewToChangeTo => () => {
+    console.log(ViewToChangeTo);
+    changeView(ViewToChangeTo);
     // this.props.changeView(event.target.name);
   };
 
@@ -16,21 +16,22 @@ const Nav = ({ view, changeView }) => {
       <Menu.Item
         name="welcome"
         active={view === 'welcome'}
-        onClick={handleNavClick}
+        onClick={handleNavClick('welcome')}
       />
       <Menu.Item
         name="search"
         active={view === 'search'}
-        onClick={handleNavClick}
+        onClick={handleNavClick('search')}
       />
       <Menu.Item
         name="à propos"
         active={view === 'about'}
-        onClick={handleNavClick}
+        onClick={handleNavClick('about')}
       />
       <Menu.Menu position="right">
         <Menu.Item
           name="logout"
+          // onClick={console.error('onClick logout à gérer')}
         />
       </Menu.Menu>
     </Menu>
