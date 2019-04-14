@@ -25,8 +25,8 @@ const App = ({ view, message }) => (
   <div id="app">
     <Nav />
     {(view === 'about') && <About />}
-    {(view === 'search') && <Search />}
-    {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} /> }
+    {(view === 'search' || (view === 'repo-contents')) && <Search />}
+    {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
     {(view === 'welcome') && <Welcome />}
   </div>
 );

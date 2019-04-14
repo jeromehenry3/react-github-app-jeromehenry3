@@ -10,6 +10,8 @@ import Search from 'src/components/Search';
 
 const mapStateToProps = (state, ownProps) => ({
   results: state.results,
+  view: state.view,
+  repoData: state.repoData,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({});

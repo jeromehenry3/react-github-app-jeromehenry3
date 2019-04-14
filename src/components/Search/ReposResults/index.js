@@ -9,8 +9,11 @@ import './styles.scss';
 
 class ReposResults extends Component {
   componentDidMount() {
-    console.log('ReposResults did mount');
     window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   handleScroll = (event) => {
@@ -24,14 +27,17 @@ class ReposResults extends Component {
       && (searchStatus !== 'ajax-waiting')
       && ((page * 30) < results.total_count)
     ) {
-      console.log('bas de page à 300px');
       this.launchAjaxScript();
     }
   }
 
+  handleRepoClick = url => () => {
+    const { getRepoData } = this.props;
+    getRepoData(url);
+  }
+
   launchAjaxScript = () => {
     const { fetchMoreResults, page, query } = this.props;
-    console.log(page);
     const nextPage = page + 1;
     fetchMoreResults(query, nextPage);
   }
@@ -44,7 +50,7 @@ class ReposResults extends Component {
         {results.items.map(({
           id, owner, name, description, url,
         }) => (
-          <Card key={id}>
+          <Card key={id} onClick={this.handleRepoClick(url)}>
             <Image src={owner.avatar_url} />
             <Card.Content>
               <Card.Header>{name}</Card.Header>
@@ -88,6 +94,7 @@ ReposResults.propTypes = {
     }).isRequired,
   ).isRequired,
   fetchMoreResults: PropTypes.func.isRequired,
+  getRepoData: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
   searchStatus: PropTypes.string.isRequired,

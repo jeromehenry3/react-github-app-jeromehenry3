@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import ReposResults from 'src/components/Search/ReposResults';
 
 // Action Creators
-import { fetchMoreResults } from 'src/store/reducer';
+import { fetchMoreResults, getRepoData } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
   results: state.results,
@@ -18,6 +18,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchMoreResults: (query, pageNumber) => {
     dispatch(fetchMoreResults(query, pageNumber));
+  },
+  getRepoData: (url) => {
+    dispatch(getRepoData(url));
   },
 
 });
