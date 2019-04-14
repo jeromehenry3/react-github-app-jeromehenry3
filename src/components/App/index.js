@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  */
 // Composants
 import About from 'src/components/About';
-import Search from 'src/components/Search';
+import Search from 'src/containers/Search';
 import Nav from 'src/containers/Nav';
 import Welcome from 'src/components/Welcome';
 import AppMessage from 'src/components/AppMessage';
@@ -33,6 +33,7 @@ const App = ({ view, message }) => (
 
 App.propTypes = {
   view: PropTypes.string.isRequired,
+  message: PropTypes.string.isRequired,
 };
 
 export default App;

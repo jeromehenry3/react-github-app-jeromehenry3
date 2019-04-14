@@ -7,7 +7,7 @@ const SearchBar = ({ input, changeInput, onSubmitForm }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     // eslint-disable-next-line no-unused-expressions
-    (input !== '') && onSubmitForm();
+    (input !== '') && onSubmitForm(input);
   };
 
   return (

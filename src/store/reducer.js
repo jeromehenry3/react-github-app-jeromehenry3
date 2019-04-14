@@ -4,7 +4,9 @@
 const initialState = {
   input: '',
   message: '',
-  results: [],
+  results: false,
+  resultsPage: false,
+  query: false,
   searchStatus: 'normal',
   view: 'search',
 };
@@ -16,6 +18,7 @@ export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RECEIVED_DATA = 'RECEIVED_DATA';
+export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 /**
  * Traitements
  */
@@ -39,15 +42,27 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         input: '',
+        results: false,
         message: 'recherche en cours...',
         searchStatus: 'ajax-waiting',
+        query: state.input,
+        resultsPage: false,
       };
     case RECEIVED_DATA:
       return {
         ...state,
         message: '',
         searchStatus: 'normal',
-        results: action.data,
+        results: state.results ? {
+          ...state.results,
+          items: [...state.results.items, ...action.data.items],
+        } : action.data,
+        resultsPage: state.resultsPage ? state.resultsPage + 1 : 1,
+      };
+    case FETCH_MORE_RESULTS:
+      return {
+        ...state,
+        searchStatus: 'ajax-waiting',
       };
 
     default:
@@ -66,13 +81,19 @@ export const changeInput = input => ({
   type: CHANGE_INPUT,
   input,
 });
-export const submitForm = () => ({
+export const submitForm = input => ({
   type: SUBMIT_FORM,
+  input,
 });
 export const receivedData = data => ({
   type: RECEIVED_DATA,
   data,
-})
+});
+export const fetchMoreResults = (query, pageNumber) => ({
+  type: FETCH_MORE_RESULTS,
+  query,
+  pageNumber,
+});
 
 /**
  * Selectors

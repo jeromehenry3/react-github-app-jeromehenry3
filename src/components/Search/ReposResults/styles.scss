@@ -1,0 +1,13 @@
+.ui.cards {
+  justify-content: center;
+  padding: 2em 1em;
+  margin: 0 auto;
+}
+.ui.card {
+  max-height: 80vh;
+  overflow: hidden;
+}
+.ui.message:last-child {
+  width: 85%;
+  text-align: center;
+}

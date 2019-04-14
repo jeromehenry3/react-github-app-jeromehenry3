@@ -16,9 +16,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   changeInput: (inputChangeEvent) => {
     dispatch(changeInput(inputChangeEvent.target.value));
   },
-  onSubmitForm: () => {
-    dispatch(submitForm());
-  }
+  onSubmitForm: (input) => {
+    dispatch(submitForm(input));
+  },
 });
 
 export default connect(
