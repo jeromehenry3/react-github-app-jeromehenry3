@@ -16,9 +16,22 @@ class RepoContents extends Component {
     const { changeView } = this.props;
     changeView('search');
   };
+  // calculs seront à déporter dans le middleware
+
+  totalBytes = () => {
+    const { languages } = this.props.data;
+    return Object.values(languages).reduce((a, b) => a + b);
+  }
+
+  languageRate = (lang) => {
+    const { languages } = this.props.data;
+    const rate = Math.round(languages[lang] * 100 / this.totalBytes());
+    return rate >= 1 ? rate : '< 1';
+  }
 
   render() {
     const { data } = this.props;
+    console.log(this.totalBytes());
     return (
       <Fragment>
         <Button onClick={this.toggleView}>Retour</Button>
@@ -31,7 +44,7 @@ class RepoContents extends Component {
                     <Label
                       key={language}
                       style={{ borderBottom: `2px solid ${Colors[language].color}` }}
-                    >{language}
+                    >{language} {this.languageRate(language)} %
                     </Label>
                   ))
                 }

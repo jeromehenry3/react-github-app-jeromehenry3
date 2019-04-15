@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Message } from 'semantic-ui-react';
+import { Card, Image, Message, Responsive } from 'semantic-ui-react';
 
 import PlaceholderCard from './PlaceholderCard';
 
