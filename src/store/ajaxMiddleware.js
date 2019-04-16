@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA, storeRepoData,
+  SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA, storeRepoData, CONNECT_USER,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -51,6 +51,20 @@ const ajaxMiddleware = store => next => (action) => {
         })
         .catch((error) => {
           console.log('erreur ajaxMiddleware/GET REPO DATA', error);
+        });
+      break;
+    case CONNECT_USER:
+      next(action);
+      axios.get('https://api.github.com/user', {
+        headers: {
+          Authorization: `token ${store.getState().loginInput}`,
+        },
+      })
+        .then((response) => {
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log('error in CONNECT USER action');
         });
         
       break;

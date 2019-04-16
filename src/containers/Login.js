@@ -8,12 +8,12 @@ import Login from 'src/components/Login';
 // Action Creators
 import { changeLoginInput, connectUser } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   loginInput: state.loginInput,
   stayConnected: state.stayConnected,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   changeInput: (value) => {
     dispatch(changeLoginInput(value));
   },

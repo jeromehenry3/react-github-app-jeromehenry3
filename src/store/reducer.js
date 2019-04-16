@@ -10,8 +10,9 @@ const initialState = {
   results: false, // values: false || object
   resultsPage: false, // values: false || int >= 1
   query: false, // values: false || string
-  searchStatus: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
+  status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
   stayConnected: false,
+  token: '',
   view: 'search', // values: search, repo-contents
 };
 
@@ -55,7 +56,7 @@ const reducer = (state = initialState, action = {}) => {
         input: '',
         results: false,
         message: 'recherche en cours...',
-        searchStatus: 'ajax-waiting',
+        status: 'ajax-waiting',
         query: state.input,
         resultsPage: false,
       };
@@ -63,7 +64,7 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         message: '',
-        searchStatus: 'normal',
+        status: 'normal',
         results: state.results ? {
           ...state.results,
           items: [...state.results.items, ...action.data.item],
@@ -73,19 +74,19 @@ const reducer = (state = initialState, action = {}) => {
     case FETCH_MORE_RESULTS: // manages state after sending query by infinite scroll system
       return {
         ...state,
-        searchStatus: 'ajax-waiting',
+        status: 'ajax-waiting',
       };
     case GET_REPO_DATA:
       return {
         ...state,
-        searchStatus: 'ajax-waiting-repo',
+        status: 'ajax-waiting-repo',
       };
     case STORE_REPO_DATA:
       return {
         ...state,
         repoData: action.repoData,
         view: 'repo-contents',
-        searchStatus: 'normal',
+        status: 'normal',
       };
     case CHANGE_LOGIN_INPUT:
       return {
@@ -95,7 +96,9 @@ const reducer = (state = initialState, action = {}) => {
     case CONNECT_USER:
       return {
         ...state,
-        isUserConnected: 'connecting',
+        status: 'connecting',
+        token: action.token,
+        stayConnected: action.stayConnected,
       };
 
     default:

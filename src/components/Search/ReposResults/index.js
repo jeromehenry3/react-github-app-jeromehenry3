@@ -17,14 +17,14 @@ class ReposResults extends Component {
   }
 
   handleScroll = (event) => {
-    const { searchStatus, page, results } = this.props;
+    const { status, page, results } = this.props;
     const root = document.getElementById('root');
     // A new axios query will be sent if scrolling at 300px from the bottom of the root div :
     // only if the app is not already waiting for results from the API
     // and if there are still more results to be fetched from there
     if (
       (window.scrollY + window.innerHeight >= root.offsetHeight - 300)
-      && (searchStatus !== 'ajax-waiting')
+      && (status !== 'ajax-waiting')
       && ((page * 30) < results.total_count)
     ) {
       this.launchAjaxScript();
@@ -97,7 +97,7 @@ ReposResults.propTypes = {
   getRepoData: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
-  searchStatus: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 

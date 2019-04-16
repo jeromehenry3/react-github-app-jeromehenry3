@@ -11,7 +11,7 @@ import { fetchMoreResults, getRepoData } from 'src/store/reducer';
 const mapStateToProps = (state, ownProps) => ({
   results: state.results,
   page: state.resultsPage,
-  searchStatus: state.searchStatus,
+  status: state.status,
   query: state.query,
 });
 

@@ -6,7 +6,9 @@ import {
 
 import './styles.scss';
 
-const Login = ({ loginInput, stayConnected, changeInput, onSubmitForm }) => {
+const Login = ({
+  loginInput, stayConnected, changeInput, onSubmitForm,
+}) => {
   const handleChangeInput = (event) => {
     console.log(event.target);
     changeInput(event.target.value);
@@ -42,6 +44,8 @@ const Login = ({ loginInput, stayConnected, changeInput, onSubmitForm }) => {
 Login.propTypes = {
   loginInput: PropTypes.string.isRequired,
   stayConnected: PropTypes.bool.isRequired,
-}
+  changeInput: PropTypes.func.isRequired,
+  onSubmitForm: PropTypes.func.isRequired,
+};
 
 export default Login;
