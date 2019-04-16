@@ -11,10 +11,11 @@ import { Route } from 'react-router-dom';
  */
 // Composants
 import About from 'src/components/About';
-import Search from 'src/containers/Search';
-import Nav from 'src/components/Nav';
-import Welcome from 'src/components/Welcome';
 import AppMessage from 'src/components/AppMessage';
+import Login from 'src/containers/Login';
+import Nav from 'src/components/Nav';
+import Search from 'src/containers/Search';
+import Welcome from 'src/components/Welcome';
 
 // Styles et assets
 import './app.sass';
@@ -22,10 +23,10 @@ import './app.sass';
 /**
  * Code
  */
-const App = ({ view, message }) => (
+const App = ({ message }) => (
   <div id="app">
     <Nav />
-    <Route exact path="/" component={Welcome} />
+    <Route exact path="/" component={Login} />
     <Route path="/about" component={About} />
     <Route path="/search" component={Search} />
     {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}

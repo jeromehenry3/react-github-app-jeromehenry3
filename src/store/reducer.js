@@ -3,13 +3,16 @@
  */
 const initialState = {
   input: '', // values: '' || string
+  isUserConnected: false,
+  loginInput: '',
   message: '', // values: '' || string
   repoData: false, // details of a repo, values: false || object
   results: false, // values: false || object
   resultsPage: false, // values: false || int >= 1
   query: false, // values: false || string
   searchStatus: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
-  view: 'search', // values: search, repo-contents, welcome, about
+  stayConnected: false,
+  view: 'search', // values: search, repo-contents
 };
 
 /**
@@ -17,6 +20,8 @@ const initialState = {
  */
 export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
+export const CHANGE_LOGIN_INPUT = 'CHANGE_LOGIN_INPUT';
+export const CONNECT_USER = 'CONNECT_USER';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RECEIVED_DATA = 'RECEIVED_DATA';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
@@ -26,6 +31,9 @@ export const STORE_REPO_DATA = 'STORE_REPO_DATA';
  * Traitements
  */
 
+// const newItems = [...action.data.items].filter(
+//   item => state.results.items.find(arrayItem => arrayItem.id !== item.id)
+// );
 /**
  * Reducer
  */
@@ -58,7 +66,7 @@ const reducer = (state = initialState, action = {}) => {
         searchStatus: 'normal',
         results: state.results ? {
           ...state.results,
-          items: [...state.results.items, ...action.data.items],
+          items: [...state.results.items, ...action.data.item],
         } : action.data,
         resultsPage: state.resultsPage ? state.resultsPage + 1 : 1,
       };
@@ -78,6 +86,16 @@ const reducer = (state = initialState, action = {}) => {
         repoData: action.repoData,
         view: 'repo-contents',
         searchStatus: 'normal',
+      };
+    case CHANGE_LOGIN_INPUT:
+      return {
+        ...state,
+        loginInput: action.value,
+      };
+    case CONNECT_USER:
+      return {
+        ...state,
+        isUserConnected: 'connecting',
       };
 
     default:
@@ -116,6 +134,15 @@ export const getRepoData = url => ({
 export const storeRepoData = repoData => ({
   type: STORE_REPO_DATA,
   repoData,
+});
+export const changeLoginInput = value => ({
+  type: CHANGE_LOGIN_INPUT,
+  value,
+});
+export const connectUser = (token, stayConnected) => ({
+  type: CONNECT_USER,
+  token,
+  stayConnected,
 });
 
 /**

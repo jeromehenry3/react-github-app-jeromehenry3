@@ -20,7 +20,7 @@ if (window.devToolsExtension) {
   devTools.push(window.devToolsExtension());
 }
 
-const enhancers = compose (appliedMiddlewares, ...devTools);
+const enhancers = compose(appliedMiddlewares, ...devTools);
 
 // createStore
 const store = createStore(reducer, enhancers);
