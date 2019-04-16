@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Route } from 'react-router-dom';
 
 
 /**
@@ -11,7 +12,7 @@ import PropTypes from 'prop-types';
 // Composants
 import About from 'src/components/About';
 import Search from 'src/containers/Search';
-import Nav from 'src/containers/Nav';
+import Nav from 'src/components/Nav';
 import Welcome from 'src/components/Welcome';
 import AppMessage from 'src/components/AppMessage';
 
@@ -24,10 +25,14 @@ import './app.sass';
 const App = ({ view, message }) => (
   <div id="app">
     <Nav />
-    {(view === 'about') && <About />}
+    <Route exact path="/" component={Welcome} />
+    <Route path="/about" component={About} />
+    <Route path="/search" component={Search} />
+    {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
+    {/* {(view === 'about') && <About />}
     {(view === 'search' || (view === 'repo-contents')) && <Search />}
     {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
-    {(view === 'welcome') && <Welcome />}
+    {(view === 'welcome') && <Welcome />} */}
   </div>
 );
 
