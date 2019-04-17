@@ -7,15 +7,10 @@ import {
 import './styles.scss';
 
 const Login = ({
-  loginInput, stayConnected, changeInput, onSubmitForm,
+  loginInput, stayConnected, changeInput, onSubmitForm, toggleStayConnectedCheckbox,
 }) => {
-  const handleChangeInput = (event) => {
-    console.log(event.target);
-    changeInput(event.target.value);
-  };
-  const handleChangeCheckbox = (event) => {
-    console.log('handleChangeCheckbox à faire');
-  };
+  const handleChangeInput = event => changeInput(event.target.value);
+
   const handleSubmit = () => (loginInput !== '') && onSubmitForm();
 
   return (
@@ -33,7 +28,7 @@ const Login = ({
           <input placeholder="Token Github" onChange={handleChangeInput} value={loginInput} />
         </Form.Field>
         <Form.Field>
-          <Checkbox label="Rester connecté" onChange={handleChangeCheckbox} checked={stayConnected} />
+          <Checkbox label="Rester connecté" onChange={toggleStayConnectedCheckbox} checked={stayConnected} />
         </Form.Field>
         <Button type="submit">Envoyer</Button>
       </Form>
@@ -46,6 +41,7 @@ Login.propTypes = {
   stayConnected: PropTypes.bool.isRequired,
   changeInput: PropTypes.func.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
+  toggleStayConnectedCheckbox: PropTypes.func.isRequired,
 };
 
 export default Login;

@@ -1,20 +1,23 @@
 /**
  * Initial State
  */
-const initialState = {
-  input: '', // values: '' || string
-  isUserConnected: false,
-  loginInput: '',
-  message: '', // values: '' || string
-  repoData: false, // details of a repo, values: false || object
-  results: false, // values: false || object
-  resultsPage: false, // values: false || int >= 1
-  query: false, // values: false || string
-  status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
-  stayConnected: false,
-  token: '',
-  view: 'search', // values: search, repo-contents
-};
+import { initialState } from 'src/data/initialState';
+// 48c1f5037e32b432d4af0255bdaec4ad22341f71
+// const initialState = {
+//   input: '48c1f5037e32b432d4af0255bdaec4ad22341f71', // values: '' || string
+//   isUserConnected: false,
+//   loginInput: '',
+//   message: '', // values: '' || string
+//   repoData: false, // details of a repo, values: false || object
+//   results: false, // values: false || object
+//   resultsPage: false, // values: false || int >= 1
+//   query: false, // values: false || string
+//   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
+//   stayConnected: false,
+//   token: '',
+//   userData: undefined,
+//   view: 'search', // values: search, repo-contents
+// };
 
 /**
  * Types
@@ -28,13 +31,30 @@ export const RECEIVED_DATA = 'RECEIVED_DATA';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 export const GET_REPO_DATA = 'GET_REPO_DATA';
 export const STORE_REPO_DATA = 'STORE_REPO_DATA';
+export const STORE_USER_DATA = 'STORE_USER_DATA';
+export const TOGGLE_STAY_CONNECTED_CHECKBOX = 'TOGGLE_STAY_CONNECTED_CHECKBOX';
 /**
  * Traitements
  */
+// To filter only wanted fields in an object (used in action storeUserData)
+const filterFieldsInObject = (initialObject, fieldsToKeep) => {
+  const filteredData = Object.keys(initialObject)
+    .filter(key => fieldsToKeep.includes(key))
+    .reduce((object, key) => {
+      return {
+        ...object,
+        [key]: initialObject[key],
+      };
+    }, {});
+  return filteredData;
+};
+  // To filter the fields in collection of objects (array of repos)
+  // Not meant to filter at more than one level of deepness (on dit comme ça ? :) )
+const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
+  object => filterFieldsInObject(object, fieldsToKeep),
+);
 
-// const newItems = [...action.data.items].filter(
-//   item => state.results.items.find(arrayItem => arrayItem.id !== item.id)
-// );
+
 /**
  * Reducer
  */
@@ -67,7 +87,7 @@ const reducer = (state = initialState, action = {}) => {
         status: 'normal',
         results: state.results ? {
           ...state.results,
-          items: [...state.results.items, ...action.data.item],
+          items: [...state.results.items, ...action.data.items],
         } : action.data,
         resultsPage: state.resultsPage ? state.resultsPage + 1 : 1,
       };
@@ -97,8 +117,25 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         status: 'connecting',
-        token: action.token,
-        stayConnected: action.stayConnected,
+        token: state.input.trim(),
+        input: '',
+      };
+    case TOGGLE_STAY_CONNECTED_CHECKBOX:
+      return {
+        ...state,
+        stayConnected: !state.stayConnected,
+      };
+    case STORE_USER_DATA:
+      // {
+      //   const { login,  }
+      // }
+      return {
+        ...state,
+        isUserConnected: true,
+        // userData: action.userData,
+        userData: action.userData,
+        userRepos: action.repos,
+        starred: action.starred,
       };
 
     default:
@@ -147,11 +184,33 @@ export const connectUser = (token, stayConnected) => ({
   token,
   stayConnected,
 });
+export const toggleStayConnectedCheckbox = () => ({
+  type: TOGGLE_STAY_CONNECTED_CHECKBOX,
+});
+
+export const storeUserData = ({ userData, repos, starred }) => {
+  // Fields to filter userData from the API to keep only the fields we want
+  const userFieldsToFilter = ['login', 'id', 'avatar_url', 'name', 'company', 'bio', 'public_repos', 'total_private_repos'];
+  const reposFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'created_at', 'updated_at'];
+  const starredFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url'];
+  return {
+    type: STORE_USER_DATA,
+    userData: filterFieldsInObject(userData, userFieldsToFilter),
+    repos: filterFieldsInArrayOfObjects(repos, reposFieldsToFilter),
+    starred: filterFieldsInArrayOfObjects(starred, starredFieldsToFilter),
+  };
+};
+
 
 /**
  * Selectors
  */
-
+export const latestUpdatedRepos = state => (
+  state.userRepos.sort((a, b) => (
+    new Date(b.updated_at) - new Date(a.updated_at)
+  ))
+    .slice(0, 5)
+);
 /**
  * Export
  */

@@ -6,8 +6,8 @@ import App from 'src/components/App';
 // import { changeView } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
-  view: state.view,
   message: state.message,
+  isUserConnected: state.isUserConnected,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

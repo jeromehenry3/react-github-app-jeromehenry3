@@ -13,9 +13,9 @@ import { Route } from 'react-router-dom';
 import About from 'src/components/About';
 import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
-import Nav from 'src/components/Nav';
+import Nav from 'src/containers/Nav';
 import Search from 'src/containers/Search';
-import Welcome from 'src/components/Welcome';
+import Welcome from 'src/containers/Welcome';
 
 // Styles et assets
 import './app.sass';
@@ -23,23 +23,21 @@ import './app.sass';
 /**
  * Code
  */
-const App = ({ message }) => (
+const App = ({ message, isUserConnected }) => (
   <div id="app">
     <Nav />
-    <Route exact path="/" component={Login} />
+    {isUserConnected
+      ? <Route exact path="/" component={Welcome} />
+      : <Route exact path="/" component={Login} /> }
     <Route path="/about" component={About} />
-    <Route path="/search" component={Search} />
+    {isUserConnected && <Route path="/search" component={Search} />}
     {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
-    {/* {(view === 'about') && <About />}
-    {(view === 'search' || (view === 'repo-contents')) && <Search />}
-    {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
-    {(view === 'welcome') && <Welcome />} */}
   </div>
 );
 
 App.propTypes = {
-  view: PropTypes.string.isRequired,
   message: PropTypes.string.isRequired,
+  isUserConnected: PropTypes.bool.isRequired,
 };
 
 export default App;

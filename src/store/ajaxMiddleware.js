@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
-  SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA, storeRepoData, CONNECT_USER,
+  SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA,
+  storeRepoData, CONNECT_USER, storeUserData,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -57,16 +58,40 @@ const ajaxMiddleware = store => next => (action) => {
       next(action);
       axios.get('https://api.github.com/user', {
         headers: {
-          Authorization: `token ${store.getState().loginInput}`,
+          Authorization: `token ${store.getState().token}`,
         },
       })
-        .then((response) => {
-          console.log(response.data);
+        .then((userResponse) => {
+          console.log(userResponse.data.login);
+          const { login } = userResponse.data;
+          const { token } = store.getState();
+          const axiosHeaders = {
+            headers: {
+              Authorization: `token ${store.getState().token}`,
+            },
+          };
+          axios.all([
+            axios.get('https://api.github.com/user/repos', axiosHeaders),
+            axios.get('https://api.github.com/user/starred', axiosHeaders),
+          ])
+            .then(axios.spread(
+              (reposResponse, starredResponse) => {
+                store.dispatch(
+                  storeUserData({
+                    userData: userResponse.data,
+                    repos: reposResponse.data,
+                    starred: starredResponse.data,
+                  }),
+                );
+              },
+            ))
+            .catch((error) => {
+              console.log('error in axios qurey from ajaxMiddlewre/CONNECT_USER :', error);
+            });
         })
         .catch((error) => {
-          console.log('error in CONNECT USER action');
+          console.log('error in CONNECT USER action :', error);
         });
-        
       break;
     default:
       return next(action);

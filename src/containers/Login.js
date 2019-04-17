@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import Login from 'src/components/Login';
 
 // Action Creators
-import { changeLoginInput, connectUser } from 'src/store/reducer';
+import { changeLoginInput, connectUser, toggleStayConnectedCheckbox } from 'src/store/reducer';
 
 const mapStateToProps = state => ({
   loginInput: state.loginInput,
@@ -19,6 +19,9 @@ const mapDispatchToProps = dispatch => ({
   },
   onSubmitForm: (input) => {
     dispatch(connectUser(input));
+  },
+  toggleStayConnectedCheckbox: (stayConnected) => {
+    dispatch(toggleStayConnectedCheckbox(stayConnected));
   },
 });
 
