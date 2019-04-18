@@ -1,19 +1,18 @@
 import { connect } from 'react-redux';
 
-/**
- * Local import
- */
-import Nav from 'src/components/Nav';
+import LogoutModal from 'src/components/LogoutModal';
 
 // Action Creators
-import { toggleLogoutModal } from 'src/store/reducer';
+import { toggleLogoutModal, logout } from 'src/store/reducer';
 
 const mapStateToProps = state => ({
-  isUserConnected: state.isUserConnected,
+  displayLogoutModal: state.displayLogoutModal,
 });
 
 const mapDispatchToProps = dispatch => ({
-
+  logout: () => {
+    dispatch(logout());
+  },
   toggleLogoutModal: () => {
     dispatch(toggleLogoutModal());
   },
@@ -22,4 +21,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Nav);
+)(LogoutModal);

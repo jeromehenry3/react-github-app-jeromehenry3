@@ -1,10 +1,19 @@
 import axios from 'axios';
 import {
   SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA,
-  storeRepoData, CONNECT_USER, storeUserData,
+  storeRepoData, CONNECT_USER, storeUserData, changeLoginMessage,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
+  const fetchGithubApi = (url) => {
+    const { token } = store.getState();
+    return axios.get(url, {
+      headers: {
+        Authorization: `token ${token}`,
+      },
+    });
+  };
+
   switch (action.type) {
     case SUBMIT_FORM:
 
@@ -34,11 +43,11 @@ const ajaxMiddleware = store => next => (action) => {
 
     case GET_REPO_DATA:
       next(action);
-      console.log('GETREPODATA middleware');
+
       axios.get(`${action.url}/contents`)
         .then((response) => {
-          const files = response.data.filter( elem => elem.type === 'file');
-          const folders = response.data.filter( elem => elem.type === 'dir');
+          const files = response.data.filter(elem => elem.type === 'file');
+          const folders = response.data.filter(elem => elem.type === 'dir');
           const filesList = [...folders, ...files];
           // store.dispatch(storeRepoList(list));
           axios.get(`${action.url}/languages`)
@@ -56,23 +65,14 @@ const ajaxMiddleware = store => next => (action) => {
       break;
     case CONNECT_USER:
       next(action);
-      axios.get('https://api.github.com/user', {
-        headers: {
-          Authorization: `token ${store.getState().token}`,
-        },
-      })
+      fetchGithubApi('https://api.github.com/user')
         .then((userResponse) => {
-          console.log(userResponse.data.login);
-          const { login } = userResponse.data;
-          const { token } = store.getState();
-          const axiosHeaders = {
-            headers: {
-              Authorization: `token ${store.getState().token}`,
-            },
-          };
+          const user = userResponse.data;
+          const message = `Fetching repos for user ${user.login}`;
+          store.dispatch(changeLoginMessage(message));
           axios.all([
-            axios.get('https://api.github.com/user/repos', axiosHeaders),
-            axios.get('https://api.github.com/user/starred', axiosHeaders),
+            fetchGithubApi('https://api.github.com/user/repos'),
+            fetchGithubApi('https://api.github.com/user/starred'),
           ])
             .then(axios.spread(
               (reposResponse, starredResponse) => {

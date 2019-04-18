@@ -13,6 +13,7 @@ import { Route } from 'react-router-dom';
 import About from 'src/components/About';
 import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
+import LogoutModal from 'src/components/LogoutModal';
 import Nav from 'src/containers/Nav';
 import Search from 'src/containers/Search';
 import Welcome from 'src/containers/Welcome';
@@ -31,7 +32,7 @@ const App = ({ message, isUserConnected }) => (
       : <Route exact path="/" component={Login} /> }
     <Route path="/about" component={About} />
     {isUserConnected && <Route path="/search" component={Search} />}
-    {message && <AppMessage message={message} negative={(message !== 'recherche en cours...')} />}
+    {message && <AppMessage message={message} />}
   </div>
 );
 

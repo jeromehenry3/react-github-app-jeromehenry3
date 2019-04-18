@@ -8,6 +8,7 @@ import App from 'src/components/App';
 const mapStateToProps = (state, ownProps) => ({
   message: state.message,
   isUserConnected: state.isUserConnected,
+  displayLogoutModal: state.displayLogoutModal,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

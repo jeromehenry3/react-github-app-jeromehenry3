@@ -1,23 +1,25 @@
 /**
  * Initial State
  */
-import { initialState } from 'src/data/initialState';
+// import { initialState } from 'src/data/initialState';
 // 48c1f5037e32b432d4af0255bdaec4ad22341f71
-// const initialState = {
-//   input: '48c1f5037e32b432d4af0255bdaec4ad22341f71', // values: '' || string
-//   isUserConnected: false,
-//   loginInput: '',
-//   message: '', // values: '' || string
-//   repoData: false, // details of a repo, values: false || object
-//   results: false, // values: false || object
-//   resultsPage: false, // values: false || int >= 1
-//   query: false, // values: false || string
-//   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
-//   stayConnected: false,
-//   token: '',
-//   userData: undefined,
-//   view: 'search', // values: search, repo-contents
-// };
+const initialState = {
+  input: '48c1f5037e32b432d4af0255bdaec4ad22341f71', // values: '' || string
+  isUserConnected: false,
+  displayLogoutModal: false,
+  loginInput: '',
+  loginMessage: '',
+  message: '', // values: '' || string
+  repoData: false, // details of a repo, values: false || object
+  results: false, // values: false || object
+  resultsPage: false, // values: false || int >= 1
+  query: false, // values: false || string
+  status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
+  stayConnected: false,
+  token: '',
+  userData: undefined,
+  view: 'search', // values: search, repo-contents
+};
 
 /**
  * Types
@@ -25,7 +27,10 @@ import { initialState } from 'src/data/initialState';
 export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
 export const CHANGE_LOGIN_INPUT = 'CHANGE_LOGIN_INPUT';
+export const CHANGE_LOGIN_MESSAGE = 'CHANGE_LOGIN_MESSAGE';
 export const CONNECT_USER = 'CONNECT_USER';
+export const TOGGLE_LOGOUT_MODAL = 'TOGGLE_LOGOUT_MODAL';
+export const LOGOUT_USER = 'LOGOUT_USER';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RECEIVED_DATA = 'RECEIVED_DATA';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
@@ -104,7 +109,7 @@ const reducer = (state = initialState, action = {}) => {
     case STORE_REPO_DATA:
       return {
         ...state,
-        repoData: action.repoData,
+        repoData: [...action.repoData],
         view: 'repo-contents',
         status: 'normal',
       };
@@ -119,6 +124,22 @@ const reducer = (state = initialState, action = {}) => {
         status: 'connecting',
         token: state.input.trim(),
         input: '',
+        loginMessage: 'connexion en cours',
+      };
+    case TOGGLE_LOGOUT_MODAL:
+      return {
+        ...state,
+        displayLogoutModal: !state.displayLogoutModal,
+      };
+    case LOGOUT_USER:
+      return {
+        ...initialState,
+        loginMessage: 'vous avez été déconnecté(e).',
+      };
+    case CHANGE_LOGIN_MESSAGE:
+      return {
+        ...state,
+        loginMessage: action.text,
       };
     case TOGGLE_STAY_CONNECTED_CHECKBOX:
       return {
@@ -133,9 +154,9 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         isUserConnected: true,
         // userData: action.userData,
-        userData: action.userData,
-        userRepos: action.repos,
-        starred: action.starred,
+        userData: { ...action.userData },
+        userRepos: [...action.repos],
+        starred: [...action.starred],
       };
 
     default:
@@ -183,6 +204,16 @@ export const connectUser = (token, stayConnected) => ({
   type: CONNECT_USER,
   token,
   stayConnected,
+});
+export const logout = () => ({
+  type: LOGOUT_USER,
+});
+export const toggleLogoutModal = () => ({
+  type: TOGGLE_LOGOUT_MODAL,
+});
+export const changeLoginMessage = text => ({
+  type: CHANGE_LOGIN_MESSAGE,
+  text,
 });
 export const toggleStayConnectedCheckbox = () => ({
   type: TOGGLE_STAY_CONNECTED_CHECKBOX,

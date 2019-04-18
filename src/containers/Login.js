@@ -11,6 +11,7 @@ import { changeLoginInput, connectUser, toggleStayConnectedCheckbox } from 'src/
 const mapStateToProps = state => ({
   loginInput: state.loginInput,
   stayConnected: state.stayConnected,
+  loginMessage: state.loginMessage,
 });
 
 const mapDispatchToProps = dispatch => ({

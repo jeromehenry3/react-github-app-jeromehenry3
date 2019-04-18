@@ -1,0 +1,42 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  Button, Header, Icon, Modal, Menu,
+} from 'semantic-ui-react';
+
+const LogoutModal = ({ displayLogoutModal, logout, toggleLogoutModal }) => {
+  const handleLogout = () => {
+    toggleLogoutModal();
+    logout();
+  };
+  return (
+    <Modal
+      // trigger={(
+      //   <Menu.Item
+      //     name="logout"
+      //     onClick={toggleLogoutModal}
+      //   />
+      // )}
+      open={displayLogoutModal}
+      basic
+      size="small"
+    >
+      <Header icon="log out" content="Vous nous quittez déjà ?" />
+      <Modal.Actions>
+        <Button basic color="red" onClick={handleLogout}>
+          <Icon name="remove" /> Se déconnecter
+        </Button>
+        <Button color="green" onClick={toggleLogoutModal}>
+          <Icon name="checkmark" /> Rester sur le site
+        </Button>
+      </Modal.Actions>
+    </Modal>
+  );
+};
+LogoutModal.propTypes = {
+  logout: PropTypes.func.isRequired,
+  toggleLogoutModal: PropTypes.func.isRequired,
+  displayLogoutModal: PropTypes.bool.isRequired,
+};
+
+export default LogoutModal;

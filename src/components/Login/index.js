@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Button, Checkbox, Form,
+  Container, Button, Checkbox, Form, Message,
 } from 'semantic-ui-react';
+
 
 import './styles.scss';
 
 const Login = ({
-  loginInput, stayConnected, changeInput, onSubmitForm, toggleStayConnectedCheckbox,
+  loginInput, stayConnected, loginMessage, changeInput, onSubmitForm, toggleStayConnectedCheckbox,
 }) => {
   const handleChangeInput = event => changeInput(event.target.value);
-
   const handleSubmit = () => (loginInput !== '') && onSubmitForm();
 
   return (
@@ -32,6 +32,7 @@ const Login = ({
         </Form.Field>
         <Button type="submit">Envoyer</Button>
       </Form>
+      {loginMessage && <Message>{loginMessage}</Message>}
     </Container>
   );
 };
@@ -42,6 +43,7 @@ Login.propTypes = {
   changeInput: PropTypes.func.isRequired,
   onSubmitForm: PropTypes.func.isRequired,
   toggleStayConnectedCheckbox: PropTypes.func.isRequired,
+  loginMessage: PropTypes.string.isRequired,
 };
 
 export default Login;
