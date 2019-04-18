@@ -1,25 +1,26 @@
 /**
  * Initial State
  */
-// import { initialState } from 'src/data/initialState';
-// 48c1f5037e32b432d4af0255bdaec4ad22341f71
-const initialState = {
-  input: '48c1f5037e32b432d4af0255bdaec4ad22341f71', // values: '' || string
-  isUserConnected: false,
-  displayLogoutModal: false,
-  loginInput: '',
-  loginMessage: '',
-  message: '', // values: '' || string
-  repoData: false, // details of a repo, values: false || object
-  results: false, // values: false || object
-  resultsPage: false, // values: false || int >= 1
-  query: false, // values: false || string
-  status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo
-  stayConnected: false,
-  token: '',
-  userData: undefined,
-  view: 'search', // values: search, repo-contents
-};
+import { initialState } from 'src/data/initialState';
+// d0a136a291cc0267e5b6158aa374039a8ee83192
+// const initialState = {
+//   input: '', // values: '' || string
+//   isUserConnected: false,
+//   displayLogoutModal: false,
+//   loginInput: '',
+//   loginMessage: '',
+//   message: '', // values: '' || string
+//   repoData: false, // details of a repo, values: false || object
+//   results: false, // values: false || object
+//   resultsPage: false, // values: false || int >= 1
+//   query: false, // values: false || string
+//   redirect: false, // used to redirect avec logout
+//   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
+//   stayConnected: false,
+//   token: '',
+//   userData: undefined,
+//   view: 'search', // values: search, repo-contents
+// };
 
 /**
  * Types
@@ -55,7 +56,7 @@ const filterFieldsInObject = (initialObject, fieldsToKeep) => {
 };
   // To filter the fields in collection of objects (array of repos)
   // Not meant to filter at more than one level of deepness (on dit comme ça ? :) )
-const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
+  const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
   object => filterFieldsInObject(object, fieldsToKeep),
 );
 
@@ -109,7 +110,7 @@ const reducer = (state = initialState, action = {}) => {
     case STORE_REPO_DATA:
       return {
         ...state,
-        repoData: [...action.repoData],
+        repoData: action.repoData,
         view: 'repo-contents',
         status: 'normal',
       };
@@ -122,8 +123,8 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         status: 'connecting',
-        token: state.input.trim(),
-        input: '',
+        token: state.loginInput.trim(),
+        loginInput: '',
         loginMessage: 'connexion en cours',
       };
     case TOGGLE_LOGOUT_MODAL:
@@ -179,18 +180,23 @@ export const submitForm = input => ({
   type: SUBMIT_FORM,
   input,
 });
-export const receivedData = data => ({
-  type: RECEIVED_DATA,
-  data,
-});
+export const receivedData = (data) => { // Data d'une requête de repos
+  const reposFieldsToFilter = ['id', 'name', 'full_name', 'owner', 'description', 'url', 'html_url', 'language'];
+  const filteredItems = filterFieldsInArrayOfObjects(data.items, reposFieldsToFilter);
+  const newData = { ...data, items: filteredItems };
+  return {
+    type: RECEIVED_DATA,
+    data: newData,
+  };
+};
 export const fetchMoreResults = (query, pageNumber) => ({
   type: FETCH_MORE_RESULTS,
   query,
   pageNumber,
 });
-export const getRepoData = url => ({
+export const getRepoData = repo => ({
   type: GET_REPO_DATA,
-  url,
+  repo,
 });
 export const storeRepoData = repoData => ({
   type: STORE_REPO_DATA,

@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
   loginInput: state.loginInput,
   stayConnected: state.stayConnected,
   loginMessage: state.loginMessage,
+  status: state.status,
 });
 
 const mapDispatchToProps = dispatch => ({

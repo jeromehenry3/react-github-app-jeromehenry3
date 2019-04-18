@@ -13,7 +13,6 @@ import { Route } from 'react-router-dom';
 import About from 'src/components/About';
 import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
-import LogoutModal from 'src/components/LogoutModal';
 import Nav from 'src/containers/Nav';
 import Search from 'src/containers/Search';
 import Welcome from 'src/containers/Welcome';

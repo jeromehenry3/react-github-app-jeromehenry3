@@ -1,17 +1,21 @@
 .ui.container{
-  padding: 3em;
+  padding: 2.5em;
 
   h1{
     text-align: center;
     font-size: 2em;
-    padding: 2em;
+    padding: 1.5em;
   }
   p{
     text-align:center;
-    padding: 1.5em;
+    padding: 1em;
   }
   .ui.form{
     width: 80%;
     margin: 2em auto;
+
+    .ui.message{
+      margin: 1em auto;
+    }
   }
 }

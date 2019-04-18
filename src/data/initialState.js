@@ -1,15 +1,18 @@
 export const initialState = {
   input: '',
   isUserConnected: true,
-  loginInput: '48c1f5037e32b432d4af0255bdaec4ad22341f71',
+  displayLogoutModal: false,
+  loginInput: '',
+  loginMessage: 'Fetching repos for user jeromehenry3',
   message: '',
   repoData: false,
   results: false,
   resultsPage: false,
   query: false,
+  redirect: false,
   status: 'connecting',
   stayConnected: false,
-  token: '48c1f5037e32b432d4af0255bdaec4ad22341f71',
+  token: 'd0a136a291cc0267e5b6158aa374039a8ee83192',
   userData: {
     login: 'jeromehenry3',
     id: 45639730,
@@ -63,7 +66,7 @@ export const initialState = {
       description: 'Des fiches récapitulatives, classées par thèmes.',
       url: 'https://api.github.com/repos/O-clock-Alumni/fiches-recap',
       created_at: '2018-02-14T13:44:13Z',
-      updated_at: '2019-04-17T14:57:26Z',
+      updated_at: '2019-04-18T13:46:25Z',
       language: 'Python'
     },
     {

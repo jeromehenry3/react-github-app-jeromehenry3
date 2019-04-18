@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Button, Header, Icon, Modal, Menu,
+  Button, Header, Icon, Modal,
 } from 'semantic-ui-react';
 
 const LogoutModal = ({ displayLogoutModal, logout, toggleLogoutModal }) => {
@@ -11,12 +11,6 @@ const LogoutModal = ({ displayLogoutModal, logout, toggleLogoutModal }) => {
   };
   return (
     <Modal
-      // trigger={(
-      //   <Menu.Item
-      //     name="logout"
-      //     onClick={toggleLogoutModal}
-      //   />
-      // )}
       open={displayLogoutModal}
       basic
       size="small"
@@ -27,7 +21,7 @@ const LogoutModal = ({ displayLogoutModal, logout, toggleLogoutModal }) => {
           <Icon name="remove" /> Se déconnecter
         </Button>
         <Button color="green" onClick={toggleLogoutModal}>
-          <Icon name="checkmark" /> Rester sur le site
+          <Icon name="checkmark" /> Rester connecté(e)
         </Button>
       </Modal.Actions>
     </Modal>

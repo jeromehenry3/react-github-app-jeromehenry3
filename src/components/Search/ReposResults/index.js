@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Message, Responsive } from 'semantic-ui-react';
+import { Card, Image, Message } from 'semantic-ui-react';
 
 import PlaceholderCard from './PlaceholderCard';
 
@@ -16,7 +16,7 @@ class ReposResults extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll = (event) => {
+  handleScroll = () => {
     const { status, page, results } = this.props;
     const root = document.getElementById('root');
     // A new axios query will be sent if scrolling at 300px from the bottom of the root div :
@@ -31,9 +31,9 @@ class ReposResults extends Component {
     }
   }
 
-  handleRepoClick = url => () => {
-    const { getRepoData } = this.props;
-    getRepoData(url);
+  handleRepoClick = index => () => {
+    const { getRepoData, results } = this.props;
+    getRepoData(results.items[index]);
   }
 
   launchAjaxScript = () => {
@@ -48,9 +48,9 @@ class ReposResults extends Component {
     return (
       <Card.Group>
         {results.items.map(({
-          id, owner, name, description, url,
-        }) => (
-          <Card key={id} onClick={this.handleRepoClick(url)}>
+          id, owner, name, description,
+        }, index) => (
+          <Card key={id} onClick={this.handleRepoClick(index)}>
             <Image src={owner.avatar_url} />
             <Card.Content>
               <Card.Header>{name}</Card.Header>

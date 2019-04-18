@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, Button, Checkbox, Form, Message,
+  Container, Button, Checkbox, Form, Message, Input,
 } from 'semantic-ui-react';
 
 
 import './styles.scss';
 
 const Login = ({
-  loginInput, stayConnected, loginMessage, changeInput, onSubmitForm, toggleStayConnectedCheckbox,
+  loginInput, stayConnected, loginMessage, changeInput, onSubmitForm, toggleStayConnectedCheckbox, status,
 }) => {
   const handleChangeInput = event => changeInput(event.target.value);
   const handleSubmit = () => (loginInput !== '') && onSubmitForm();
-
+  const connecting = status === 'connecting';
   return (
     <Container>
       <h1>Bienvenue sur l'appli de recherche sur Github !</h1>
@@ -25,14 +25,14 @@ const Login = ({
       <Form onSubmit={handleSubmit}>
         <Form.Field>
           <label>Token personnel Github</label>
-          <input placeholder="Token Github" onChange={handleChangeInput} value={loginInput} />
+          <Input type="password" placeholder="Token Github" loading={connecting} disabled={connecting} onChange={handleChangeInput} value={loginInput} />
         </Form.Field>
         <Form.Field>
-          <Checkbox label="Rester connecté" onChange={toggleStayConnectedCheckbox} checked={stayConnected} />
+          <Checkbox label="Rester connecté" onChange={toggleStayConnectedCheckbox} disabled={connecting} checked={stayConnected} />
         </Form.Field>
-        <Button type="submit">Envoyer</Button>
+        <Button type="submit" loading={connecting} disabled={connecting}>Envoyer</Button>
+        {loginMessage && <Message>{loginMessage}</Message>}
       </Form>
-      {loginMessage && <Message>{loginMessage}</Message>}
     </Container>
   );
 };
