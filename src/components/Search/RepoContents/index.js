@@ -4,6 +4,7 @@ import {
   Table, Icon, Button, Label,
 } from 'semantic-ui-react';
 
+import './styles.scss';
 // importé depuis https://github.com/ozh/github-colors/blob/master/LICENSE
 import Colors from './colors.json';
 
@@ -35,6 +36,7 @@ class RepoContents extends Component {
     return (
       <Fragment>
         <Button onClick={this.toggleView}>Retour</Button>
+        <Icon name={data.starred ? 'star' : 'star outline'} />
         <Table celled striped>
           <Table.Header>
             <Table.Row>

@@ -56,7 +56,7 @@ const filterFieldsInObject = (initialObject, fieldsToKeep) => {
 };
   // To filter the fields in collection of objects (array of repos)
   // Not meant to filter at more than one level of deepness (on dit comme ça ? :) )
-  const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
+const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
   object => filterFieldsInObject(object, fieldsToKeep),
 );
 
@@ -79,10 +79,10 @@ const reducer = (state = initialState, action = {}) => {
     case SUBMIT_FORM: // manages state after 'first' query sent to the API
       return {
         ...state,
-        input: '',
         results: false,
         message: 'recherche en cours...',
         status: 'ajax-waiting',
+        view: 'search',
         query: state.input,
         resultsPage: false,
       };

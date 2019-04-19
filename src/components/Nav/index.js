@@ -8,14 +8,14 @@ import './styles.scss';
 
 const Nav = ({ isUserConnected, toggleLogoutModal }) => (
   <Menu pointing secondary>
-    <Menu.Item name="welcome" as={Link} to="/">Welcome</Menu.Item>
-    {isUserConnected && <Menu.Item name="search" as={Link} to="/search">Search</Menu.Item>}
+    <Menu.Item name="welcome" as={Link} to="/">Bienvenue</Menu.Item>
+    {isUserConnected && <Menu.Item name="search" as={Link} to="/search">Rechercher</Menu.Item>}
     <Menu.Item name="about" as={Link} to="/about">A propos</Menu.Item>
 
     <Menu.Menu position="right">
       {isUserConnected && (
         <Menu.Item
-          name="logout"
+          name="Déconnexion"
           onClick={toggleLogoutModal}
         />
       )}

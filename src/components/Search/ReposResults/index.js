@@ -23,7 +23,7 @@ class ReposResults extends Component {
     // only if the app is not already waiting for results from the API
     // and if there are still more results to be fetched from there
     if (
-      (window.scrollY + window.innerHeight >= root.offsetHeight - 300)
+      (window.scrollY + window.innerHeight >= root.offsetHeight - 500)
       && (status !== 'ajax-waiting')
       && ((page * 30) < results.total_count)
     ) {
