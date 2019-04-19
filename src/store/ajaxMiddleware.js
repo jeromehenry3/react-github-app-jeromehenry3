@@ -2,6 +2,7 @@ import axios from 'axios';
 import {
   SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA,
   storeRepoData, CONNECT_USER, storeUserData, changeLoginMessage,
+  logout,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -104,6 +105,14 @@ const ajaxMiddleware = store => next => (action) => {
         })
         .catch((error) => {
           console.log('error in CONNECT USER action :', error);
+          if (error.response.status === 401) {
+            store.dispatch(logout());
+            store.dispatch(changeLoginMessage('Le token que vous avez saisi est invalide'))
+          }
+          else {
+            store.dispatch(logout());
+            store.dispatch(changeLoginMessage(error.response.message));
+          }
         });
       break;
     default:

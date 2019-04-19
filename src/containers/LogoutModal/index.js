@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import LogoutModal from 'src/components/LogoutModal';
 
 // Action Creators
-import { toggleLogoutModal, logout } from 'src/store/reducer';
+import { toggleLogoutModal, logout, changeLoginMessage } from 'src/store/reducer';
 
 const mapStateToProps = state => ({
   displayLogoutModal: state.displayLogoutModal,
@@ -15,6 +15,9 @@ const mapDispatchToProps = dispatch => ({
   },
   toggleLogoutModal: () => {
     dispatch(toggleLogoutModal());
+  },
+  confirmLogoutToUser: () => {
+    dispatch(changeLoginMessage('Vous êtes bien déconnecté(e)'));
   },
 });
 

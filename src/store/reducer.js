@@ -1,26 +1,26 @@
 /**
  * Initial State
  */
-import { initialState } from 'src/data/initialState';
+// import { initialState } from 'src/data/initialState';
 // d0a136a291cc0267e5b6158aa374039a8ee83192
-// const initialState = {
-//   input: '', // values: '' || string
-//   isUserConnected: false,
-//   displayLogoutModal: false,
-//   loginInput: '',
-//   loginMessage: '',
-//   message: '', // values: '' || string
-//   repoData: false, // details of a repo, values: false || object
-//   results: false, // values: false || object
-//   resultsPage: false, // values: false || int >= 1
-//   query: false, // values: false || string
-//   redirect: false, // used to redirect avec logout
-//   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
-//   stayConnected: false,
-//   token: '',
-//   userData: undefined,
-//   view: 'search', // values: search, repo-contents
-// };
+const initialState = {
+  input: '', // values: '' || string
+  isUserConnected: false,
+  displayLogoutModal: false,
+  loginInput: '',
+  loginMessage: '',
+  message: '', // values: '' || string
+  repoData: false, // details of a repo, values: false || object
+  results: false, // values: false || object
+  resultsPage: false, // values: false || int >= 1
+  query: false, // values: false || string
+  redirect: false, // used to redirect avec logout
+  status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
+  stayConnected: false,
+  token: '',
+  userData: undefined,
+  view: 'search', // values: search, repo-contents
+};
 
 /**
  * Types

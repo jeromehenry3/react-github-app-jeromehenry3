@@ -4,10 +4,13 @@ import {
   Button, Header, Icon, Modal,
 } from 'semantic-ui-react';
 
-const LogoutModal = ({ displayLogoutModal, logout, toggleLogoutModal }) => {
+const LogoutModal = ({
+  displayLogoutModal, logout, toggleLogoutModal, confirmLogoutToUser
+}) => {
   const handleLogout = () => {
     toggleLogoutModal();
     logout();
+    confirmLogoutToUser();
   };
   return (
     <Modal
@@ -31,6 +34,7 @@ LogoutModal.propTypes = {
   logout: PropTypes.func.isRequired,
   toggleLogoutModal: PropTypes.func.isRequired,
   displayLogoutModal: PropTypes.bool.isRequired,
+  confirmLogoutToUser: PropTypes.func.isRequired,
 };
 
 export default LogoutModal;
