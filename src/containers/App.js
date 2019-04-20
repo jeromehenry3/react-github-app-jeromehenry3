@@ -9,6 +9,7 @@ const mapStateToProps = (state, ownProps) => ({
   message: state.message,
   isUserConnected: state.isUserConnected,
   displayLogoutModal: state.displayLogoutModal,
+  results: state.results,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

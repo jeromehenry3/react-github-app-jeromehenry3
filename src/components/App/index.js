@@ -14,6 +14,7 @@ import About from 'src/components/About';
 import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
 import Nav from 'src/containers/Nav';
+import ReposResults from 'src/containers/Search/ReposResults';
 import Search from 'src/containers/Search';
 import Welcome from 'src/containers/Welcome';
 
@@ -23,7 +24,7 @@ import './app.sass';
 /**
  * Code
  */
-const App = ({ message, isUserConnected }) => (
+const App = ({ message, isUserConnected, results }) => (
   <div id="app">
     <Nav />
     {isUserConnected
@@ -31,6 +32,7 @@ const App = ({ message, isUserConnected }) => (
       : <Route exact path="/" component={Login} /> }
     <Route path="/about" component={About} />
     {isUserConnected && <Route path="/search" component={Search} />}
+    {isUserConnected && results && <Route path="/results" component={ReposResults} />}
     {message && <AppMessage message={message} />}
   </div>
 );

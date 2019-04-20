@@ -4,7 +4,7 @@
   h1{
     text-align: center;
     font-size: 2em;
-    padding: 1.5em;
+    padding: 1.2em;
   }
   p{
     text-align:center;
@@ -17,5 +17,8 @@
     .ui.message{
       margin: 1em auto;
     }
+  }
+  .ui.icon.input>i.icon{
+    right: 18px;
   }
 }

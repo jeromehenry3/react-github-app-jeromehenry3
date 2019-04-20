@@ -38,6 +38,7 @@ export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 export const GET_REPO_DATA = 'GET_REPO_DATA';
 export const STORE_REPO_DATA = 'STORE_REPO_DATA';
 export const STORE_USER_DATA = 'STORE_USER_DATA';
+// export const TOGGLE_REPO_STAR = 'TOGGLE_REPO_STAR'; TODO
 export const TOGGLE_STAY_CONNECTED_CHECKBOX = 'TOGGLE_STAY_CONNECTED_CHECKBOX';
 /**
  * Traitements
@@ -154,7 +155,6 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...state,
         isUserConnected: true,
-        // userData: action.userData,
         userData: { ...action.userData },
         userRepos: [...action.repos],
         starred: [...action.starred],
@@ -202,6 +202,11 @@ export const storeRepoData = repoData => ({
   type: STORE_REPO_DATA,
   repoData,
 });
+// TODO
+// export const toggleRepoStar = () => ({
+//   type: TOGGLE_REPO_STAR,
+//   repoData
+// });
 export const changeLoginInput = value => ({
   type: CHANGE_LOGIN_INPUT,
   value,
