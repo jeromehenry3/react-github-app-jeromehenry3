@@ -35,7 +35,7 @@ const App = ({ message, isUserConnected, results, repoURL }) => (
     <Route
       path="/search"
       render={() => (
-        isUserConnected ? (<Search />) : (<Redirect to="/" />)
+        isUserConnected ? (<ReposResults />) : (<Redirect to="/" />)
       )}
     />
     <Route

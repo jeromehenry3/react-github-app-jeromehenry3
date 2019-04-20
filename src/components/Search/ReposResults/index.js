@@ -52,7 +52,7 @@ class ReposResults extends Component {
       <div id="search">
 
         <SearchBar />
-        <Card.Group>
+        {results && (<Card.Group>
           {results.items.map(({
             id, owner, name, description,
           }, index) => (
@@ -83,7 +83,7 @@ class ReposResults extends Component {
             </Message>
           )
           }
-        </Card.Group>
+        </Card.Group>)}
       </div>
     );
   }

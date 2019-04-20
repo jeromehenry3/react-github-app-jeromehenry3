@@ -1,8 +1,8 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RepoContents from 'src/containers/Search/RepoContents';
 import {
-  Table, Icon, Button, Label,
+  Container, Icon, Button, Label,
 } from 'semantic-ui-react';
 
 import SearchBar from 'src/containers/Search/SearchBar';
@@ -21,9 +21,11 @@ class Repo extends Component {
     return (
       <div id="repo">
         <SearchBar />
-        {(status !== 'repo loaded') ? (<p>
-          please wait
-        </p>) : (<RepoContents />)}
+        <Container>
+          {(status !== 'repo loaded') ? (<p>
+            please wait
+          </p>) : (<RepoContents />)}
+        </Container>
       </div>
     );
   }
