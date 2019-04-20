@@ -40,6 +40,7 @@ export const SHOW_REPO = 'SHOW_REPO';
 export const RESET_REDIRECTION = 'RESET_REDIRECTION';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 export const GET_REPO_DATA = 'GET_REPO_DATA';
+export const STAR_REPO = 'STAR_REPO';
 export const STORE_REPO_DATA = 'STORE_REPO_DATA';
 export const STORE_USER_DATA = 'STORE_USER_DATA';
 // export const TOGGLE_REPO_STAR = 'TOGGLE_REPO_STAR'; TODO
@@ -211,11 +212,10 @@ export const storeRepoData = repoData => ({
   type: STORE_REPO_DATA,
   repoData,
 });
-// TODO
-// export const toggleRepoStar = () => ({
-//   type: TOGGLE_REPO_STAR,
-//   repoData
-// });
+export const toggleRepoStar = () => ({
+  type: TOGGLE_REPO_STAR,
+  repoData
+});
 export const changeLoginInput = value => ({
   type: CHANGE_LOGIN_INPUT,
   value,

@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA,
   storeRepoData, CONNECT_USER, storeUserData, changeLoginMessage,
-  logout,
+  logout, STAR_REPO,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -119,6 +119,20 @@ const ajaxMiddleware = store => next => (action) => {
             store.dispatch(changeLoginMessage(error.response.message));
           }
         });
+      break;
+    case STAR_REPO:
+      axios.put(`https://api.github.com/user/starred/${repoURL}`, {
+        header: {
+          Authorization: `token ${store.getState().token}`,
+          'Content-Length': 0,
+        }
+      })
+        .then((response) => {
+          console.log(response.status);
+        })
+        .catch((error) => {
+          console.log(error.status);
+        })
       break;
     default:
       return next(action);
