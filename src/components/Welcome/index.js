@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, Grid } from 'semantic-ui-react';
-import LatestRepoList from 'src/components/Welcome/LatestRepoList';
+import LittleList from 'src/components/Welcome/LittleList';
 import UserCard from './UserCard';
 
 import './styles.scss';
 
 
-const Welcome = ({ userData, lastReposList }) => {
+const Welcome = ({ userData, lastReposList, lastStarsList }) => {
 
   return (
     <Container>
@@ -17,7 +17,8 @@ const Welcome = ({ userData, lastReposList }) => {
             <UserCard {...userData} />
           </Grid.Column>
           <Grid.Column width={10} className="vertical-centered">
-            <LatestRepoList list={lastReposList} />
+            <LittleList list={lastReposList} cat="github" />
+            <LittleList list={lastStarsList} cat="star" />
           </Grid.Column>
         </Grid.Row>
       </Grid>

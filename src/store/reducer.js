@@ -20,6 +20,8 @@ const initialState = {
   stayConnected: false,
   token: '',
   userData: undefined,
+  userRepos: [],
+  starred: [],
   view: 'search', // values: search, repo-contents
 };
 
@@ -247,8 +249,8 @@ export const toggleStayConnectedCheckbox = () => ({
 export const storeUserData = ({ userData, repos, starred }) => {
   // Fields to filter userData from the API to keep only the fields we want
   const userFieldsToFilter = ['login', 'id', 'avatar_url', 'name', 'company', 'bio', 'public_repos', 'total_private_repos'];
-  const reposFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'created_at', 'updated_at'];
-  const starredFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url'];
+  const reposFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'created_at', 'updated_at', 'owner'];
+  const starredFieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'owner'];
   return {
     type: STORE_USER_DATA,
     userData: filterFieldsInObject(userData, userFieldsToFilter),
@@ -263,6 +265,12 @@ export const storeUserData = ({ userData, repos, starred }) => {
  */
 export const latestUpdatedRepos = state => (
   state.userRepos.sort((a, b) => (
+    new Date(b.updated_at) - new Date(a.updated_at)
+  ))
+    .slice(0, 5)
+);
+export const lastStarsRepos = state => (
+  state.starred.sort((a, b) => (
     new Date(b.updated_at) - new Date(a.updated_at)
   ))
     .slice(0, 5)
