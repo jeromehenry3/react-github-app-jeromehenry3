@@ -13,12 +13,6 @@ class RepoContents extends Component {
     window.scrollTo(0, 0); // resets scroll position when mounting
   }
 
-  toggleView = () => {
-    const { changeView } = this.props;
-    changeView('search');
-  };
-  // calculs seront à déporter dans le middleware
-
   totalBytes = () => {
     const { languages } = this.props.data;
     return Object.values(languages).reduce((a, b) => a + b);
@@ -32,7 +26,8 @@ class RepoContents extends Component {
 
   render() {
     const { data } = this.props;
-    console.log(this.totalBytes());
+    console.log(data, this.totalBytes());
+
     return (
       <Fragment>
         <Button onClick={this.toggleView}>Retour</Button>
@@ -42,7 +37,7 @@ class RepoContents extends Component {
             <Table.Row>
               <Table.HeaderCell><span>Git Repository </span>
                 {
-                  Object.keys(data.languages).map(language => (
+                  data.languages !== {} && Object.keys(data.languages).map(language => (
                     <Label
                       key={language}
                       style={{ borderBottom: `2px solid ${Colors[language].color}` }}

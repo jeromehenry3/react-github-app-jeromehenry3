@@ -1,16 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container } from 'semantic-ui-react';
+import { Container, Grid } from 'semantic-ui-react';
 import LatestRepoList from 'src/containers/LatestRepoList';
 import UserCard from './UserCard';
 
+import './styles.scss';
 
-const Welcome = ({ userData, repos }) => {
+
+const Welcome = ({ userData }) => {
 
   return (
     <Container>
-      <UserCard {...userData} />
-      <LatestRepoList />
+      <Grid>
+        <Grid.Row>
+          <Grid.Column width={6}>
+            <UserCard {...userData} />
+          </Grid.Column>
+          <Grid.Column width={10} className="vertical-centered">
+            <LatestRepoList />
+          </Grid.Column>
+        </Grid.Row>
+      </Grid>
     </Container>
   );
 };

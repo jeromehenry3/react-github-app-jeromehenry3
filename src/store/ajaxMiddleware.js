@@ -43,9 +43,9 @@ const ajaxMiddleware = store => next => (action) => {
       break;
 
     case GET_REPO_DATA:
-      const { repo } = action;
+      const { repoURL } = action;
       next(action);
-      fetchGithubApi(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/contents`)
+      fetchGithubApi(`https://api.github.com/repos/${repoURL}/contents`)
         .then((response) => {
           console.log(response);
           const files = response.data.filter(elem => elem.type === 'file');
@@ -53,23 +53,23 @@ const ajaxMiddleware = store => next => (action) => {
           const filesList = [...folders, ...files];
 
           // returns languages used in this repo
-          fetchGithubApi(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/languages`)
+          fetchGithubApi(`https://api.github.com/repos/${repoURL}/languages`)
             .then((responseLanguages) => {
               const languages = responseLanguages.data;
               
-              fetchGithubApi(`https://api.github.com/user/starred/${repo.owner.login}/${repo.name}`)
+              fetchGithubApi(`https://api.github.com/user/starred/${repoURL}`)
                 .then((responseStarred) => {
                   const starred = responseStarred;
                   console.log('starred query : ', starred);
                   store.dispatch(storeRepoData({
-                    ...repo, filesList, languages, starred: true,
+                    filesList, languages, starred: true,
                   }));
                 })
                 .catch((errorStarred) => {
                   // eslint-disable-next-line no-unused-expressions
                   errorStarred.response.status === 404
                     ? store.dispatch(storeRepoData({
-                      ...repo, filesList, languages, starred: false,
+                      filesList, languages, starred: false,
                     }))
                     : console.log('erreur ajaxMiddleware starred route: ', errorStarred);
                 });

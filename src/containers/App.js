@@ -10,6 +10,7 @@ const mapStateToProps = (state, ownProps) => ({
   isUserConnected: state.isUserConnected,
   displayLogoutModal: state.displayLogoutModal,
   results: state.results,
+  repoURL: state.repoURL,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

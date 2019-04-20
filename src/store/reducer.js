@@ -7,14 +7,15 @@ const initialState = {
   input: '', // values: '' || string
   isUserConnected: false,
   displayLogoutModal: false,
-  loginInput: '',
+  loginInput: 'd0a136a291cc0267e5b6158aa374039a8ee83192',
   loginMessage: '',
   message: '', // values: '' || string
   repoData: false, // details of a repo, values: false || object
   results: false, // values: false || object
   resultsPage: false, // values: false || int >= 1
   query: false, // values: false || string
-  redirect: false, // used to redirect avec logout
+  repoURL: '',
+  redirect: false,
   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
   stayConnected: false,
   token: '',
@@ -34,6 +35,8 @@ export const TOGGLE_LOGOUT_MODAL = 'TOGGLE_LOGOUT_MODAL';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const SUBMIT_FORM = 'SUBMIT_FORM';
 export const RECEIVED_DATA = 'RECEIVED_DATA';
+export const SHOW_REPO = 'SHOW_REPO';
+export const RESET_REDIRECTION = 'RESET_REDIRECTION';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 export const GET_REPO_DATA = 'GET_REPO_DATA';
 export const STORE_REPO_DATA = 'STORE_REPO_DATA';
@@ -67,11 +70,11 @@ const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArra
  */
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    case CHANGE_VIEW:
-      return {
-        ...state,
-        view: action.view,
-      };
+    // case CHANGE_VIEW:
+    //   return {
+    //     ...state,
+    //     view: action.view,
+    //   };
     case CHANGE_INPUT:
       return {
         ...state,
@@ -113,7 +116,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         repoData: action.repoData,
         view: 'repo-contents',
-        status: 'normal',
+        status: 'repo loaded',
       };
     case CHANGE_LOGIN_INPUT:
       return {
@@ -137,6 +140,18 @@ const reducer = (state = initialState, action = {}) => {
       return {
         ...initialState,
         loginMessage: 'vous avez été déconnecté(e).',
+      };
+    case SHOW_REPO:
+      return {
+        ...state,
+        repoURL: action.repoURL,
+        redirect: true,
+        status: 'opening repo',
+      };
+    case RESET_REDIRECTION:
+      return {
+        ...state,
+        redirect: false,
       };
     case CHANGE_LOGIN_MESSAGE:
       return {
@@ -194,9 +209,9 @@ export const fetchMoreResults = (query, pageNumber) => ({
   query,
   pageNumber,
 });
-export const getRepoData = repo => ({
+export const getRepoData = repoURL => ({
   type: GET_REPO_DATA,
-  repo,
+  repoURL,
 });
 export const storeRepoData = repoData => ({
   type: STORE_REPO_DATA,
@@ -218,6 +233,13 @@ export const connectUser = (token, stayConnected) => ({
 });
 export const logout = () => ({
   type: LOGOUT_USER,
+});
+export const redirect = repoURL => ({
+  type: SHOW_REPO,
+  repoURL,
+});
+export const resetRedirection = () => ({
+  type: RESET_REDIRECTION,
 });
 export const toggleLogoutModal = () => ({
   type: TOGGLE_LOGOUT_MODAL,

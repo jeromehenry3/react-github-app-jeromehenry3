@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Card, Image, Message } from 'semantic-ui-react';
+import { Redirect } from 'react-router-dom';
 
 import SearchBar from 'src/containers/Search/SearchBar';
 import PlaceholderCard from './PlaceholderCard';
@@ -32,9 +33,10 @@ class ReposResults extends Component {
     }
   }
 
-  handleRepoClick = index => () => {
-    const { getRepoData, results } = this.props;
-    getRepoData(results.items[index]);
+  handleRepoClick = (owner, name) => () => {
+    const { redirectToRepo } = this.props;
+    // getRepoData(results.items[index]);
+    redirectToRepo(`${owner.login}/${name}`);
   }
 
   launchAjaxScript = () => {
@@ -44,16 +46,17 @@ class ReposResults extends Component {
   }
 
   render() {
-    const { results, page } = this.props;
-
+    const { results, page, repoURL, redirect } = this.props;
+    if (redirect) return (<Redirect to={`/repo/${repoURL}`} />);
     return (
       <div id="search">
+
         <SearchBar />
         <Card.Group>
           {results.items.map(({
             id, owner, name, description,
           }, index) => (
-            <Card key={id} onClick={this.handleRepoClick(index)}>
+            <Card key={id} onClick={this.handleRepoClick(owner, name)}>
               <Image src={owner.avatar_url} />
               <Card.Content>
                 <Card.Header>{name}</Card.Header>
@@ -98,7 +101,7 @@ ReposResults.propTypes = {
     }).isRequired,
   ).isRequired,
   fetchMoreResults: PropTypes.func.isRequired,
-  getRepoData: PropTypes.func.isRequired,
+  redirectToRepo: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
   query: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,

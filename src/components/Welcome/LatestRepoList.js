@@ -1,8 +1,13 @@
 import React from 'react';
-import { List } from 'semantic-ui-react';
+import PropTypes from 'prop-types';
+import { List, Header, Icon } from 'semantic-ui-react';
 
 const LatestRepoList = ({ list }) => (
   <List divided relaxed>
+    <Header as='h2'>
+      <Icon name='github' />
+      <Header.Content>Mes derniers repos</Header.Content>
+    </Header>
     {
       list.map(({ id, name, full_name, updated_at, private: priv }) => (
         <List.Item key={id}>
@@ -18,6 +23,12 @@ const LatestRepoList = ({ list }) => (
     }
 
   </List>
-)
+);
+
+LatestRepoList.propTypes = {
+  list: PropTypes.arrayOf(
+    PropTypes.object,
+  ).isRequired,
+};
 
 export default LatestRepoList;

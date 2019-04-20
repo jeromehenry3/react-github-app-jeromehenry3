@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 
 
 /**
@@ -15,6 +15,7 @@ import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
 import Nav from 'src/containers/Nav';
 import ReposResults from 'src/containers/Search/ReposResults';
+import Repo from 'src/containers/Repo';
 import Search from 'src/containers/Search';
 import Welcome from 'src/containers/Welcome';
 
@@ -24,15 +25,34 @@ import './app.sass';
 /**
  * Code
  */
-const App = ({ message, isUserConnected, results }) => (
+const App = ({ message, isUserConnected, results, repoURL }) => (
   <div id="app">
     <Nav />
     {isUserConnected
       ? <Route exact path="/" component={Welcome} />
       : <Route exact path="/" component={Login} /> }
     <Route path="/about" component={About} />
-    {isUserConnected && <Route path="/search" component={Search} />}
-    {isUserConnected && results && <Route path="/results" component={ReposResults} />}
+    <Route
+      path="/search"
+      render={() => (
+        isUserConnected ? (<Search />) : (<Redirect to="/" />)
+      )}
+    />
+    <Route
+      path="/results"
+      render={() => (
+        (isUserConnected && results) ? (<ReposResults />) : (<Redirect to="/" />)
+      )}
+    />
+    
+    <Route
+      path={`/repo/:repoURL`}
+      render={() => (
+        (isUserConnected) ? (<Repo />) : (<Redirect to="/" />)
+      )}
+    />
+    
+    
     {message && <AppMessage message={message} />}
   </div>
 );

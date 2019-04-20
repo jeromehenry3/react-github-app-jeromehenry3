@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   changeView: (view) => {
     dispatch(changeView(view));
   },
+
 });
 
 export default connect(
