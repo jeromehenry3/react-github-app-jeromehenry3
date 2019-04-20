@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Table, Icon, Button, Label,
@@ -24,13 +25,18 @@ class RepoContents extends Component {
     return rate >= 1 ? rate : '< 1';
   }
 
+  goBack = () => {
+    console.log(window.history);
+    window.history.back();
+  }
+
   render() {
     const { data } = this.props;
     console.log(data, this.totalBytes());
 
     return (
       <Fragment>
-        <Button onClick={this.toggleView}>Retour</Button>
+        <Button onClick={this.goBack}>Retour</Button>
         <Icon name={data.starred ? 'star' : 'star outline'} />
         <Table celled striped>
           <Table.Header>

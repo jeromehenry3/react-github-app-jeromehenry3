@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RepoContents from 'src/containers/Search/RepoContents';
 import {
@@ -9,10 +10,11 @@ import SearchBar from 'src/containers/Search/SearchBar';
 
 class Repo extends Component {
   componentDidMount() {
-    const { resetRedirection, getRepoData, repoURL } = this.props;
+    const { resetRedirection, getRepoData, repoURL, match } = this.props;
     resetRedirection();
-    getRepoData(repoURL);
-
+    console.log(this.props.match);
+    // getRepoData(repoURL);
+    getRepoData(`${match.params.owner}/${match.params.repoURL}`);
   }
 
   render() {
@@ -32,7 +34,6 @@ class Repo extends Component {
 }
 
 Repo.propTypes = {
-  data: PropTypes.object.isRequired,
   resetRedirection: PropTypes.func.isRequired,
   repoURL: PropTypes.string.isRequired,
   getRepoData: PropTypes.func.isRequired,

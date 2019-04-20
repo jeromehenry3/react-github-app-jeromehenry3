@@ -28,11 +28,15 @@ const UserCard = ({
 
 UserCard.propTypes = {
   name: PropTypes.string.isRequired,
-  company: PropTypes.string.isRequired,
+  company: PropTypes.string,
   bio: PropTypes.string.isRequired,
   public_repos: PropTypes.number.isRequired,
   total_private_repos: PropTypes.number.isRequired,
   avatar_url: PropTypes.string.isRequired,
+}
+
+UserCard.defaultProps = {
+  company: 'non renseigné',
 }
 
 export default UserCard;
