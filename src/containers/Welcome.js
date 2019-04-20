@@ -7,10 +7,11 @@ import Welcome from 'src/components/Welcome';
 
 // Action Creators
 // import { } from 'src/store/reducer';
-// import { latestUpdatedRepos } from 'src/store/reducer';
+import { latestUpdatedRepos } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
   userData: state.userData,
+  lastReposList: latestUpdatedRepos(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

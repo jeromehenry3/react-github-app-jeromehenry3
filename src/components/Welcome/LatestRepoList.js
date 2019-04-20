@@ -18,7 +18,7 @@ const LatestRepoList = ({ list }) => (
           }
           <List.Content>
             <List.Header as={Link} to={{pathname: `/repo/${full_name}`, state: {repoURL: full_name}}}>{name}</List.Header>
-            <List.Description as='p'>{full_name}</List.Description>
+            <List.Description as='span'>{full_name}</List.Description>
           </List.Content>
         </List.Item>))
     }
