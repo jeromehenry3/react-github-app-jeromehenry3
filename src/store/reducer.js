@@ -26,7 +26,6 @@ const initialState = {
 /**
  * Types
  */
-export const CHANGE_VIEW = 'CHANGE_VIEW';
 export const CHANGE_INPUT = 'CHANGE_INPUT';
 export const CHANGE_LOGIN_INPUT = 'CHANGE_LOGIN_INPUT';
 export const CHANGE_LOGIN_MESSAGE = 'CHANGE_LOGIN_MESSAGE';
@@ -70,11 +69,7 @@ const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArra
  */
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-    // case CHANGE_VIEW:
-    //   return {
-    //     ...state,
-    //     view: action.view,
-    //   };
+
     case CHANGE_INPUT:
       return {
         ...state,
@@ -183,10 +178,7 @@ const reducer = (state = initialState, action = {}) => {
 /**
  * Action Creators
  */
-export const changeView = view => ({
-  type: CHANGE_VIEW,
-  view,
-});
+
 export const changeInput = input => ({
   type: CHANGE_INPUT,
   input,

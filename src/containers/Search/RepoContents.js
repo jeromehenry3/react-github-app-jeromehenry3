@@ -6,19 +6,13 @@ import { connect } from 'react-redux';
 import RepoContents from 'src/components/Search/RepoContents';
 
 // Action Creators
-import { changeView } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
   data: state.repoData,
 
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  changeView: (view) => {
-    dispatch(changeView(view));
-  },
-
-});
+const mapDispatchToProps = (dispatch, ownProps) => ({});
 
 export default connect(
   mapStateToProps,

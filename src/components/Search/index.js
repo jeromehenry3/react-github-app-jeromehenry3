@@ -9,10 +9,10 @@ import './styles.scss';
 const Search = ({ view, results, repoData }) => (
   <div id="search">
     <SearchBar />
-    <Container>
+    {/* <Container> */}
       {results && <ReposResults results={results} />}
       {/* {(view === 'repo-contents') && repoData && <RepoContents />} */}
-    </Container>
+    {/* </Container> */}
   </div>
 );
 

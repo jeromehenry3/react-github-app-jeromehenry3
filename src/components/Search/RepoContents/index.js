@@ -76,7 +76,6 @@ class RepoContents extends Component {
 
 RepoContents.propTypes = {
   data: PropTypes.object.isRequired,
-  changeView: PropTypes.func.isRequired,
 };
 
 export default RepoContents;

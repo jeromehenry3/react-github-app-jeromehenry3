@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import App from 'src/components/App';
 
 // Action Creators
-// import { changeView } from 'src/store/reducer';
+
 
 const mapStateToProps = (state, ownProps) => ({
   message: state.message,
@@ -13,11 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
   repoURL: state.repoURL,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  // changeView: (view) => {
-  //   dispatch(changeView(view));
-  // },
-});
+const mapDispatchToProps = (dispatch, ownProps) => ({});
 
 export default connect(
   mapStateToProps,
