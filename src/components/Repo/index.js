@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RepoContents from 'src/containers/Search/RepoContents';
+import AppMessage from 'src/components/AppMessage'
 import {
   Container,
 } from 'semantic-ui-react';
@@ -21,11 +21,11 @@ class Repo extends Component {
 
     return (
       <div id="repo">
-        <SearchBar />
+        {/* <SearchBar /> */}
         <Container>
-          {(status !== 'repo loaded') ? (<p>
-            please wait
-          </p>) : (<RepoContents />)}
+          {(status !== 'repo loaded')
+            ? (<AppMessage message="recherche en cours..." />)
+            : (<RepoContents />)}
         </Container>
       </div>
     );

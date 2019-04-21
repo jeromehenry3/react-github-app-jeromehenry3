@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import SearchBar from 'src/containers/Search/SearchBar';
 import PlaceholderCard from './PlaceholderCard';
+import RepoCard from 'src/components/RepoCard';
 
 import './styles.scss';
 
@@ -52,38 +53,30 @@ class ReposResults extends Component {
       <div id="search">
 
         <SearchBar />
-        {results && (<Card.Group>
-          {results.items.map(({
-            id, owner, name, description,
-          }, index) => (
-            <Card key={id} onClick={this.handleRepoClick(owner, name)}>
-              <Image src={owner.avatar_url} />
-              <Card.Content>
-                <Card.Header>{name}</Card.Header>
-                <Card.Meta>
-                  <span>{owner.login}</span>
-                </Card.Meta>
-                <Card.Description>{description}</Card.Description>
-              </Card.Content>
-            </Card>
-          ))
-          }
-          { ((page * 30) < results.total_count)
-          && <>
-            <PlaceholderCard />
-            <PlaceholderCard />
-            <PlaceholderCard />
-            </>
-          }
-          { ((page * 30) >= results.total_count)
-          && (
-            <Message floating>
-              <Message.Header>Fin des résultats...</Message.Header>
-              <p>Vous n'avez pas trouvé ce que vous cherchiez ? tentez une autre requête.</p>
-            </Message>
-          )
-          }
-        </Card.Group>)}
+        {results && (
+          <Card.Group>
+            {results.items.map(data => (
+              <RepoCard {...data} onClick={this.handleRepoClick(data.owner, data.name)} />
+
+            ))
+            }
+            { ((page * 30) < results.total_count)
+            && <>
+              <PlaceholderCard />
+              <PlaceholderCard />
+              <PlaceholderCard />
+              </>
+            }
+            { ((page * 30) >= results.total_count)
+            && (
+              <Message floating>
+                <Message.Header>Fin des résultats...</Message.Header>
+                <p>Vous n'avez pas trouvé ce que vous cherchiez ? tentez une autre requête.</p>
+              </Message>
+            )
+            }
+        </Card.Group>
+        )}
       </div>
     );
   }

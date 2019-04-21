@@ -5,10 +5,11 @@ import {
   Table, Icon, Button, Label,
 } from 'semantic-ui-react';
 
+import RepoCard from 'src/components/RepoCard';
 import './styles.scss';
 // importé depuis https://github.com/ozh/github-colors/blob/master/LICENSE
 import Colors from './colors.json';
-import { unStarRepo } from '../../../store/reducer';
+
 
 class RepoContents extends Component {
   componentDidMount() {
@@ -46,8 +47,12 @@ class RepoContents extends Component {
 
     return (
       <Fragment>
+        <RepoCard {...repoData.data} />
         <Button onClick={this.goBack}>Retour</Button>
-        <Icon name={repoData.starred ? 'star' : 'star outline'} onClick={this.handleStar} />
+        <Button onClick={this.handleStar}>
+          {repoData.starred ? 'Retirer des favoris ' : 'Ajouter aux favoris '}
+          <Icon name={repoData.starred ? 'star' : 'star outline'} />
+        </Button>
         <Table celled striped>
           <Table.Header>
             <Table.Row>
@@ -68,7 +73,7 @@ class RepoContents extends Component {
           <Table.Body>
 
             {
-              repoData.filesList.map(({ type, name, sha }) => (
+              repoData.filesList !== [] && repoData.filesList.map(({ type, name, sha }) => (
                 <Table.Row key={sha}>
                   <Table.Cell collapsing>
                     <Icon name={type === 'file' ? 'file outline' : 'folder'} />
@@ -86,6 +91,8 @@ class RepoContents extends Component {
 
 RepoContents.propTypes = {
   repoData: PropTypes.object.isRequired,
+  starRepo: PropTypes.func.isRequired,
+  unStarRepo: PropTypes.func.isRequired,
 };
 
 export default RepoContents;

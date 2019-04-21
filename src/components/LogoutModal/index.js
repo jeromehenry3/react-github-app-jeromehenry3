@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 
 const LogoutModal = ({
-  displayLogoutModal, logout, toggleLogoutModal, confirmLogoutToUser
+  displayLogoutModal, logout, toggleLogoutModal, confirmLogoutToUser,
 }) => {
   const handleLogout = () => {
     toggleLogoutModal();
