@@ -11,11 +11,11 @@ const RepoCard = ({ id, owner, name, description, full_name, onClick }) => (
       <Card.Header>{name}
         <Popup
           trigger={(
-            <a href={`https://github.com/${full_name}`}>
+            <a href={`https://github.com/${full_name}`} target ="_blank">
               <Icon name="external" />
             </a>
           )}
-          position="top right"
+          position="top center"
           content="ouvrir dans Github"
         />
       </Card.Header>
