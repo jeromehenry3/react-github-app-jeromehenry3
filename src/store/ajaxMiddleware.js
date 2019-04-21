@@ -14,6 +14,7 @@ const ajaxMiddleware = store => next => (action) => {
       },
     });
   };
+  const { token } = store.getState();
 
   switch (action.type) {
     case SUBMIT_FORM:
@@ -125,18 +126,21 @@ const ajaxMiddleware = store => next => (action) => {
         });
       break;
     case STAR_REPO:
-      axios.put(`https://api.github.com/user/starred/${repoURL}`, {
-        header: {
-          Authorization: `token ${store.getState().token}`,
-          'Content-Length': 0,
-        }
+      console.log(action);
+      axios.put(`https://api.github.com/user/starred/${action.url}`, {}, {
+        headers: {
+          Authorization: `token ${token}`,
+        },
       })
         .then((response) => {
-          console.log(response.status);
+          // eslint-disable-next-line no-unused-expressions
+          response.status === 204
+            ? next(action)
+            : console.log('starring repo status: ', response.message);
         })
         .catch((error) => {
-          console.log(error.status);
-        })
+          console.log('error Starring Repo: ', error);
+        });
       break;
     default:
       return next(action);

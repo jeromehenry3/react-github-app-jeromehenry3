@@ -149,6 +149,14 @@ const reducer = (state = initialState, action = {}) => {
     case STAR_REPO:
       return {
         ...state,
+        starred: [
+          state.repoData.data,
+          ...state.starred,
+        ],
+        repoData: {
+          ...state.repoData,
+          starred: true,
+        },
       };
     case RESET_REDIRECTION:
       return {
@@ -222,9 +230,9 @@ export const storeRepoData = (repoData) => {
     },
   };
 };
-export const starRepo = repoURL => ({
+export const starRepo = url => ({
   type: STAR_REPO,
-  repoURL,
+  url,
 });
 export const changeLoginInput = value => ({
   type: CHANGE_LOGIN_INPUT,

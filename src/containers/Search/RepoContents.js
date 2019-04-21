@@ -9,7 +9,7 @@ import RepoContents from 'src/components/Search/RepoContents';
 import { starRepo } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
-  data: state.repoData,
+  repoData: state.repoData,
 
 });
 

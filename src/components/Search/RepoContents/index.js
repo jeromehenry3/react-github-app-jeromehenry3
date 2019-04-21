@@ -15,12 +15,12 @@ class RepoContents extends Component {
   }
 
   totalBytes = () => {
-    const { languages } = this.props.data;
+    const { languages } = this.props.repoData;
     return Object.values(languages).reduce((a, b) => a + b);
   }
 
   languageRate = (lang) => {
-    const { languages } = this.props.data;
+    const { languages } = this.props.repoData;
     const rate = Math.round(languages[lang] * 100 / this.totalBytes());
     return rate >= 1 ? rate : '< 1';
   }
@@ -31,24 +31,25 @@ class RepoContents extends Component {
   }
 
   handleStar = () => {
-    const { starRepo, data } = this.props;
-    console.log(data);
+    const { starRepo, repoData } = this.props;
+    const url = repoData.data.full_name;
+    starRepo(url);
   };
 
   render() {
-    const { data } = this.props;
-    console.log(data, this.totalBytes());
+    const { repoData } = this.props;
+    console.log(repoData, this.totalBytes());
 
     return (
       <Fragment>
         <Button onClick={this.goBack}>Retour</Button>
-        <Icon name={data.starred ? 'star' : 'star outline'} onClick={this.handleStar} />
+        <Icon name={repoData.starred ? 'star' : 'star outline'} onClick={this.handleStar} />
         <Table celled striped>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell><span>Git Repository </span>
                 {
-                  data.languages !== {} && Object.keys(data.languages).map(language => (
+                  repoData.languages !== {} && Object.keys(repoData.languages).map(language => (
                     <Label
                       key={language}
                       style={{ borderBottom: `2px solid ${Colors[language].color}` }}
@@ -63,7 +64,7 @@ class RepoContents extends Component {
           <Table.Body>
 
             {
-              data.filesList.map(({ type, name, sha }) => (
+              repoData.filesList.map(({ type, name, sha }) => (
                 <Table.Row key={sha}>
                   <Table.Cell collapsing>
                     <Icon name={type === 'file' ? 'file outline' : 'folder'} />
@@ -80,7 +81,7 @@ class RepoContents extends Component {
 }
 
 RepoContents.propTypes = {
-  data: PropTypes.object.isRequired,
+  repoData: PropTypes.object.isRequired,
 };
 
 export default RepoContents;

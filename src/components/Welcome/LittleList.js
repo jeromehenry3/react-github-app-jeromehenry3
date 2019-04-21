@@ -27,7 +27,7 @@ const LittleList = ({ list, cat }) => (
             (cat === 'star') && <Image avatar src={owner.avatar_url} />
           }
           {
-            (priv === true) && <List.Icon name="privacy" size="large" verticalAlign="middle" />
+            (cat === 'github' && priv === true) && <List.Icon name="privacy" size="large" verticalAlign="middle" />
           }
           {
             (cat === 'github' && priv === false) && <List.Icon name="world" size="large" verticalAlign="middle" />
