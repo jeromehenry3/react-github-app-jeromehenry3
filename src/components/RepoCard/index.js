@@ -1,12 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image } from 'semantic-ui-react';
+import { Card, Image, Popup, Icon } from 'semantic-ui-react';
 
-const RepoCard = ({ id, owner, name, description, onClick }) => (
+import './styles.scss';
+
+const RepoCard = ({ id, owner, name, description, full_name, onClick }) => (
   <Card key={id} onClick={onClick}>
     <Image src={owner.avatar_url} />
     <Card.Content>
-      <Card.Header>{name}</Card.Header>
+      <Card.Header>{name}
+        <Popup
+          trigger={(
+            <a href={`https://github.com/${full_name}`}>
+              <Icon name="external" />
+            </a>
+          )}
+          position="top right"
+          content="ouvrir dans Github"
+        />
+      </Card.Header>
       <Card.Meta>
         <span>{owner.login}</span>
       </Card.Meta>
