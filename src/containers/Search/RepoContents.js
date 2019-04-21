@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import RepoContents from 'src/components/Search/RepoContents';
 
 // Action Creators
-import { starRepo } from 'src/store/reducer';
+import { starRepo, unStarRepo } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
   repoData: state.repoData,
@@ -16,6 +16,9 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   starRepo: (url) => {
     dispatch(starRepo(url));
+  },
+  unStarRepo: (url) => {
+    dispatch(unStarRepo(url));
   },
 });
 

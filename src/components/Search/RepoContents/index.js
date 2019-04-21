@@ -8,6 +8,7 @@ import {
 import './styles.scss';
 // importé depuis https://github.com/ozh/github-colors/blob/master/LICENSE
 import Colors from './colors.json';
+import { unStarRepo } from '../../../store/reducer';
 
 class RepoContents extends Component {
   componentDidMount() {
@@ -31,9 +32,12 @@ class RepoContents extends Component {
   }
 
   handleStar = () => {
-    const { starRepo, repoData } = this.props;
+    const { starRepo, unStarRepo, repoData } = this.props;
     const url = repoData.data.full_name;
-    starRepo(url);
+    // eslint-disable-next-line no-unused-expressions
+    repoData.starred
+      ? unStarRepo(url)
+      : starRepo(url);
   };
 
   render() {

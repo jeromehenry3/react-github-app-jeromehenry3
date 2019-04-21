@@ -2,7 +2,7 @@ import axios from 'axios';
 import {
   SUBMIT_FORM, receivedData, FETCH_MORE_RESULTS, GET_REPO_DATA,
   storeRepoData, CONNECT_USER, storeUserData, changeLoginMessage,
-  logout, STAR_REPO,
+  logout, STAR_REPO, UNSTAR_REPO,
 } from './reducer';
 
 const ajaxMiddleware = store => next => (action) => {
@@ -126,8 +126,23 @@ const ajaxMiddleware = store => next => (action) => {
         });
       break;
     case STAR_REPO:
-      console.log(action);
       axios.put(`https://api.github.com/user/starred/${action.url}`, {}, {
+        headers: {
+          Authorization: `token ${token}`,
+        },
+      })
+        .then((response) => {
+          // eslint-disable-next-line no-unused-expressions
+          response.status === 204
+            ? next(action)
+            : console.log('starring repo status: ', response.message);
+        })
+        .catch((error) => {
+          console.log('error Starring Repo: ', error);
+        });
+      break;
+    case UNSTAR_REPO:
+      axios.delete(`https://api.github.com/user/starred/${action.url}`, {
         headers: {
           Authorization: `token ${token}`,
         },

@@ -41,6 +41,7 @@ export const RESET_REDIRECTION = 'RESET_REDIRECTION';
 export const FETCH_MORE_RESULTS = 'FETCH_MORE_RESULTS';
 export const GET_REPO_DATA = 'GET_REPO_DATA';
 export const STAR_REPO = 'STAR_REPO';
+export const UNSTAR_REPO = 'UNSTAR_REPO';
 export const STORE_REPO_DATA = 'STORE_REPO_DATA';
 export const STORE_USER_DATA = 'STORE_USER_DATA';
 // export const TOGGLE_REPO_STAR = 'TOGGLE_REPO_STAR'; TODO
@@ -65,7 +66,10 @@ const filterFieldsInObject = (initialObject, fieldsToKeep) => {
 const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
   object => filterFieldsInObject(object, fieldsToKeep),
 );
-
+  // To delete an
+const deleteRepoFromArrayByProp = (array, prop, repoProp) => (
+  array.filter(repo => repo[prop] !== repoProp)
+);
 
 /**
  * Reducer
@@ -158,6 +162,15 @@ const reducer = (state = initialState, action = {}) => {
           starred: true,
         },
       };
+    case UNSTAR_REPO:
+      return {
+        ...state,
+        starred: deleteRepoFromArrayByProp(state.starred, 'full_name', action.url),
+        repoData: {
+          ...state.repoData,
+          starred: false,
+        },
+      };
     case RESET_REDIRECTION:
       return {
         ...state,
@@ -232,6 +245,10 @@ export const storeRepoData = (repoData) => {
 };
 export const starRepo = url => ({
   type: STAR_REPO,
+  url,
+});
+export const unStarRepo = url => ({
+  type: UNSTAR_REPO,
   url,
 });
 export const changeLoginInput = value => ({
