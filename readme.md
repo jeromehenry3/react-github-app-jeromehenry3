@@ -44,11 +44,11 @@ Juste une page présentant le site avec un petit texte et pourquoi pas une / des
 
 **Demandes client**
 
-* J'aimerais que l'interface dispose d'une indication de loading lors des requêtes
-* Chaque page de repo doit afficher son titre, et la liste de ses dossiers / fichiers
-* Chaque page de repo permet de le mettre / retirer en favori
-* Quand je me déconnecte je veux que seul les menu "welcome" et "à propos" soient visibles
-* La page welcome, si déconnecté, affiche un formulaire pour se logger avec un token github
+* ~~J'aimerais que l'interface dispose d'une indication de loading lors des requêtes~~ OK
+* ~~Chaque page de repo doit afficher son titre, et la liste de ses dossiers / fichiers~~ OK
+* ~~Chaque page de repo permet de le mettre / retirer en favori~~ OK
+* ~~Quand je me déconnecte je veux que seul les menu "welcome" et "à propos" soient visibles~~ OK
+* ~~La page welcome, si déconnecté, affiche un formulaire pour se logger avec un token github~~ OK
 
 ### Connexion avec un token
 
@@ -81,7 +81,7 @@ axios.get('https://api.github.com/me', {
 ## Bonus
 
 * Quand on est sur la page pour voir le contenu d'un repo (dossiers fichiers), récupérer le contenu du readme et essayer de l'afficher (des libraires existent pour convertir du markdown et l'afficher)
-* rajouter un bouton sur chaque résultat de recherche pour ouvrir ce repo directement sur github plutôt que dans notre app.
+* ~~rajouter un bouton sur chaque résultat de recherche pour ouvrir ce repo directement sur github plutôt que dans notre app.~~ OK
 
 ## TOUT ce qui n'est pas précisé est libre, donc faites vous plaisir !!
 
