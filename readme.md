@@ -12,10 +12,10 @@ Un certain client, qui souhaite rester anonyme, souhaite fournir à ses élèves
 
 **Fonctionnalités**
 
-* Connexion à github à l'aide d'un token personnel
-* Chercher des repos sur github
-* Voir le contenu d'un repo sur Github
-* Mettre des repos en favoris
+* ~~Connexion à github à l'aide d'un token personnel~~ fait
+* ~~Chercher des repos sur github~~ fait
+* ~~Voir le contenu d'un repo sur Github~~ fait
+* ~~Mettre des repos en favoris~~ fait
 
 **Pages accessibles via un menu**
 
@@ -29,10 +29,10 @@ Si l'utilisateur n'est pas connecté, cette page affiche un formulaire pour se c
 
 Si l'user est connecté, cette page affiche :
 
-* Le profil de l'user
-* Un bouton pour se déconnecter
-* Les derniers repos de l'user (je peux cliquer dessus pour voir le contenu)
-* Les repos mis en favoris (je peux cliquer dessus pour voir le contenu)
+* ~~Le profil de l'user~~ fait
+* ~~Un bouton pour se déconnecter~~ fait
+* ~~Les derniers repos de l'user (je peux cliquer dessus pour voir le contenu)~~ fait
+* ~~Les repos mis en favoris (je peux cliquer dessus pour voir le contenu)~~ fait
 
 ### Search
 
