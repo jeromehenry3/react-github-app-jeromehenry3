@@ -10,7 +10,6 @@ const Nav = ({ isUserConnected, toggleLogoutModal, results }) => (
   <Menu pointing secondary>
     <Menu.Item name="welcome" as={Link} to="/">Bienvenue</Menu.Item>
     {isUserConnected && <Menu.Item name="search" as={Link} to="/search">Rechercher</Menu.Item>}
-    {results && <Menu.Item name="results" as={Link} to="/results">Résultats</Menu.Item>}
     <Menu.Item name="about" as={Link} to="/about">A propos</Menu.Item>
 
     <Menu.Menu position="right">
