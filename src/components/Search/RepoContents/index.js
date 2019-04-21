@@ -30,6 +30,11 @@ class RepoContents extends Component {
     window.history.back();
   }
 
+  handleStar = () => {
+    const { starRepo, data } = this.props;
+    console.log(data);
+  };
+
   render() {
     const { data } = this.props;
     console.log(data, this.totalBytes());
@@ -37,7 +42,7 @@ class RepoContents extends Component {
     return (
       <Fragment>
         <Button onClick={this.goBack}>Retour</Button>
-        <Icon name={data.starred ? 'star' : 'star outline'} />
+        <Icon name={data.starred ? 'star' : 'star outline'} onClick={this.handleStar} />
         <Table celled striped>
           <Table.Header>
             <Table.Row>

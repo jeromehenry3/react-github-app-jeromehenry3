@@ -146,6 +146,10 @@ const reducer = (state = initialState, action = {}) => {
         redirect: true,
         status: 'opening repo',
       };
+    case STAR_REPO:
+      return {
+        ...state,
+      };
     case RESET_REDIRECTION:
       return {
         ...state,
@@ -208,13 +212,19 @@ export const getRepoData = repoURL => ({
   type: GET_REPO_DATA,
   repoURL,
 });
-export const storeRepoData = repoData => ({
-  type: STORE_REPO_DATA,
-  repoData,
-});
-export const toggleRepoStar = () => ({
-  type: TOGGLE_REPO_STAR,
-  repoData
+export const storeRepoData = (repoData) => {
+  const fieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'created_at', 'updated_at', 'owner'];
+  return {
+    type: STORE_REPO_DATA,
+    repoData: {
+      ...repoData,
+      data: filterFieldsInObject(repoData.data, fieldsToFilter),
+    },
+  };
+};
+export const starRepo = repoURL => ({
+  type: STAR_REPO,
+  repoURL,
 });
 export const changeLoginInput = value => ({
   type: CHANGE_LOGIN_INPUT,

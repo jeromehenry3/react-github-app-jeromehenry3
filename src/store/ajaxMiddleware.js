@@ -45,31 +45,35 @@ const ajaxMiddleware = store => next => (action) => {
     case GET_REPO_DATA:
       const { repoURL } = action;
       next(action);
-      fetchGithubApi(`https://api.github.com/repos/${repoURL}/contents`)
-        .then((response) => {
-          console.log(response);
-          const files = response.data.filter(elem => elem.type === 'file');
-          const folders = response.data.filter(elem => elem.type === 'dir');
+      axios.all([
+        fetchGithubApi(`https://api.github.com/repos/${repoURL}`),
+        fetchGithubApi(`https://api.github.com/repos/${repoURL}/contents`),
+      ])
+        .then(axios.spread((response, contentResponse) => {
+          console.log(response, contentResponse);
+          const data = { ...response.data };
+          const files = contentResponse.data.filter(elem => elem.type === 'file');
+          const folders = contentResponse.data.filter(elem => elem.type === 'dir');
           const filesList = [...folders, ...files];
 
           // returns languages used in this repo
           fetchGithubApi(`https://api.github.com/repos/${repoURL}/languages`)
             .then((responseLanguages) => {
               const languages = responseLanguages.data;
-              
+              // checks if repo is starred by user
               fetchGithubApi(`https://api.github.com/user/starred/${repoURL}`)
                 .then((responseStarred) => {
                   const starred = responseStarred;
                   console.log('starred query : ', starred);
                   store.dispatch(storeRepoData({
-                    filesList, languages, starred: true,
+                    data, filesList, languages, starred: true,
                   }));
                 })
                 .catch((errorStarred) => {
                   // eslint-disable-next-line no-unused-expressions
                   errorStarred.response.status === 404
                     ? store.dispatch(storeRepoData({
-                      filesList, languages, starred: false,
+                      data, filesList, languages, starred: false,
                     }))
                     : console.log('erreur ajaxMiddleware starred route: ', errorStarred);
                 });
@@ -77,7 +81,7 @@ const ajaxMiddleware = store => next => (action) => {
             .catch((error) => {
               console.log('erreur ajaxMiddleware/GET REPO DATA', error);
             });
-        })
+        }))
         .catch((error) => {
           console.log('erreur ajaxMiddleware/GET REPO DATA', error);
         });

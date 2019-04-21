@@ -6,13 +6,18 @@ import { connect } from 'react-redux';
 import RepoContents from 'src/components/Search/RepoContents';
 
 // Action Creators
+import { starRepo } from 'src/store/reducer';
 
 const mapStateToProps = (state, ownProps) => ({
   data: state.repoData,
 
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  starRepo: (url) => {
+    dispatch(starRepo(url));
+  },
+});
 
 export default connect(
   mapStateToProps,
