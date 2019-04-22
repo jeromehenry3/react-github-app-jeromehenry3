@@ -1,8 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import { withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  Table, Icon, Button, Label,
+  Table, Icon, Button, Label, Popup,
 } from 'semantic-ui-react';
 
 import RepoCard from 'src/components/RepoCard';
@@ -28,7 +27,6 @@ class RepoContents extends Component {
   }
 
   goBack = () => {
-    console.log(window.history);
     window.history.back();
   }
 
@@ -43,7 +41,6 @@ class RepoContents extends Component {
 
   render() {
     const { repoData } = this.props;
-    console.log(repoData, this.totalBytes());
 
     return (
       <Fragment>
@@ -73,11 +70,23 @@ class RepoContents extends Component {
           <Table.Body>
 
             {
-              repoData.filesList !== [] && repoData.filesList.map(({ type, name, sha }) => (
+              repoData.filesList !== [] && repoData.filesList.map(({
+                type, name, sha, html_url: htmlURL,
+              }) => (
                 <Table.Row key={sha}>
-                  <Table.Cell collapsing>
+                  <Table.Cell>
                     <Icon name={type === 'file' ? 'file outline' : 'folder'} />
                     {name}
+                    <Popup
+                      trigger={(
+                        <a href={htmlURL} target="_blank" rel="noopener noreferrer">
+                          <Icon name="external" />
+                        </a>
+                      )}
+                      position="top left"
+                      content="ouvrir dans Github"
+                      size="mini"
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))
@@ -93,6 +102,7 @@ RepoContents.propTypes = {
   repoData: PropTypes.object.isRequired,
   starRepo: PropTypes.func.isRequired,
   unStarRepo: PropTypes.func.isRequired,
+  html_url: PropTypes.string.isRequired,
 };
 
 export default RepoContents;

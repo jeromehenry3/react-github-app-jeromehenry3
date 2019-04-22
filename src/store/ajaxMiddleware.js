@@ -5,6 +5,7 @@ import {
   logout, STAR_REPO, UNSTAR_REPO,
 } from './reducer';
 
+// eslint-disable-next-line consistent-return
 const ajaxMiddleware = store => next => (action) => {
   const fetchGithubApi = (url) => {
     const { token } = store.getState();
@@ -32,40 +33,35 @@ const ajaxMiddleware = store => next => (action) => {
 
     case FETCH_MORE_RESULTS:
       next(action);
-      console.log('middleware: fetchMoreResults. pageNumber : ', action.pageNumber);
       fetchGithubApi(`https://api.github.com/search/repositories?q=${action.query}&page=${action.pageNumber}`)
         .then((response) => {
           const { data } = response;
           store.dispatch(receivedData(data));
         })
         .catch((error) => {
-          console.log('erreur ajaxMiddleware/FETCH_MORE_RESULTS: ', error);
+          console.error('erreur ajaxMiddleware/FETCH_MORE_RESULTS: ', error);
         });
       break;
 
     case GET_REPO_DATA:
-      const { repoURL } = action;
       next(action);
       axios.all([
-        fetchGithubApi(`https://api.github.com/repos/${repoURL}`),
-        fetchGithubApi(`https://api.github.com/repos/${repoURL}/contents`),
+        fetchGithubApi(`https://api.github.com/repos/${action.repoURL}`),
+        fetchGithubApi(`https://api.github.com/repos/${action.repoURL}/contents`),
       ])
         .then(axios.spread((response, contentResponse) => {
-          console.log(response, contentResponse);
           const data = { ...response.data };
           const files = contentResponse.data.filter(elem => elem.type === 'file');
           const folders = contentResponse.data.filter(elem => elem.type === 'dir');
           const filesList = [...folders, ...files];
 
           // returns languages used in this repo
-          fetchGithubApi(`https://api.github.com/repos/${repoURL}/languages`)
+          fetchGithubApi(`https://api.github.com/repos/${action.repoURL}/languages`)
             .then((responseLanguages) => {
               const languages = responseLanguages.data;
               // checks if repo is starred by user
-              fetchGithubApi(`https://api.github.com/user/starred/${repoURL}`)
-                .then((responseStarred) => {
-                  const starred = responseStarred;
-                  console.log('starred query : ', starred);
+              fetchGithubApi(`https://api.github.com/user/starred/${action.repoURL}`)
+                .then(() => {
                   store.dispatch(storeRepoData({
                     data, filesList, languages, starred: true,
                   }));
@@ -76,15 +72,15 @@ const ajaxMiddleware = store => next => (action) => {
                     ? store.dispatch(storeRepoData({
                       data, filesList, languages, starred: false,
                     }))
-                    : console.log('erreur ajaxMiddleware starred route: ', errorStarred);
+                    : console.error('erreur ajaxMiddleware starred route: ', errorStarred);
                 });
             })
             .catch((error) => {
-              console.log('erreur ajaxMiddleware/GET REPO DATA', error);
+              console.error('erreur ajaxMiddleware/GET REPO DATA', error);
             });
         }))
         .catch((error) => {
-          console.log('erreur ajaxMiddleware/GET REPO DATA', error);
+          console.error('erreur ajaxMiddleware/GET REPO DATA', error);
         });
       break;
     case CONNECT_USER:
@@ -110,14 +106,14 @@ const ajaxMiddleware = store => next => (action) => {
               },
             ))
             .catch((error) => {
-              console.log('error in axios query from ajaxMiddlewre/CONNECT_USER :', error);
+              console.error('error in axios query from ajaxMiddlewre/CONNECT_USER :', error);
             });
         })
         .catch((error) => {
-          console.log('error in CONNECT USER action :', error);
+          console.error('error in CONNECT USER action :', error);
           if (error.response.status === 401) {
             store.dispatch(logout());
-            store.dispatch(changeLoginMessage('Le token que vous avez saisi est invalide'))
+            store.dispatch(changeLoginMessage('Le token que vous avez saisi est invalide'));
           }
           else {
             store.dispatch(logout());
@@ -138,7 +134,7 @@ const ajaxMiddleware = store => next => (action) => {
             : console.log('starring repo status: ', response.message);
         })
         .catch((error) => {
-          console.log('error Starring Repo: ', error);
+          console.error('error Starring Repo: ', error);
         });
       break;
     case UNSTAR_REPO:
@@ -154,7 +150,7 @@ const ajaxMiddleware = store => next => (action) => {
             : console.log('starring repo status: ', response.message);
         })
         .catch((error) => {
-          console.log('error Starring Repo: ', error);
+          console.error('error Starring Repo: ', error);
         });
       break;
     default:

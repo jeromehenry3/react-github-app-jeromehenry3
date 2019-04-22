@@ -60,6 +60,7 @@
     "react-redux": "*",
     "react-router-dom": "^5.0.0",
     "redux": "*",
+    "remarkable": "^1.7.1",
     "semantic-ui-react": "^0.86.0"
   }
 }
