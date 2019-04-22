@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { List, Header, Icon, Image } from 'semantic-ui-react';
+import {
+  List, Header, Icon, Image,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 const adaptTitle = (cat) => {
@@ -21,7 +23,9 @@ const LittleList = ({ list, cat }) => (
       <Header.Content>{adaptTitle(cat)}</Header.Content>
     </Header>
     {
-      list.map(({ id, name, full_name, updated_at, private: priv, owner }) => (
+      list.map(({
+        id, name, full_name: fullName, private: priv, owner,
+      }) => (
         <List.Item key={id}>
           {
             (cat === 'star') && <Image avatar src={owner.avatar_url} />
@@ -37,13 +41,13 @@ const LittleList = ({ list, cat }) => (
               as={Link}
               to={
                 {
-                  pathname: `/repo/${full_name}`,
-                  state: { repoURL: full_name },
+                  pathname: `/repo/${fullName}`,
+                  state: { repoURL: fullName },
                 }
               }
             >{name}
             </List.Header>
-            <List.Description as="span">{full_name}</List.Description>
+            <List.Description as="span">{fullName}</List.Description>
           </List.Content>
         </List.Item>))
     }

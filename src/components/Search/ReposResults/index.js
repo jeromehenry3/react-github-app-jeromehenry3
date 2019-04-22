@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Card, Image, Message } from 'semantic-ui-react';
+import { Card, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
 import SearchBar from 'src/containers/Search/SearchBar';
-import PlaceholderCard from './PlaceholderCard';
 import RepoCard from 'src/components/RepoCard';
+import PlaceholderCard from './PlaceholderCard';
 
 import './styles.scss';
 
@@ -47,7 +47,9 @@ class ReposResults extends Component {
   }
 
   render() {
-    const { results, page, repoURL, redirect } = this.props;
+    const {
+      results, page, repoURL, redirect,
+    } = this.props;
     if (redirect) return (<Redirect to={`/repo/${repoURL}`} />);
     return (
       <div id="search">
@@ -75,7 +77,7 @@ class ReposResults extends Component {
               </Message>
             )
             }
-        </Card.Group>
+          </Card.Group>
         )}
       </div>
     );
@@ -96,7 +98,10 @@ ReposResults.propTypes = {
   fetchMoreResults: PropTypes.func.isRequired,
   redirectToRepo: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,
-  query: PropTypes.string.isRequired,
+  query: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.bool,
+  ]).isRequired,
   status: PropTypes.string.isRequired,
 };
 

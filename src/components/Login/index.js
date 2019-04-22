@@ -18,7 +18,7 @@ const Login = ({
     <Container>
       <h1>Bienvenue sur l'appli de recherche sur Github !</h1>
       <p>Pour vous connecter au service, veuillez entrer votre token personnel Github.</p>
-      <p>C'est un code, unique et personnel,&nbsp
+      <p>C'est un code, unique et personnel, 
       qui permet de se logger sans avoir à saisir mail ou mdp.
       </p>
       <p>Pour créer le votre: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></p>
