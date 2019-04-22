@@ -6,7 +6,7 @@ import LogoutModal from 'src/containers/LogoutModal';
 
 import './styles.scss';
 
-const Nav = ({ isUserConnected, toggleLogoutModal, results }) => (
+const Nav = ({ isUserConnected, toggleLogoutModal }) => (
   <Menu pointing secondary>
     <Menu.Item name="welcome" as={Link} to="/">Bienvenue</Menu.Item>
     {isUserConnected && <Menu.Item name="search" as={Link} to="/search">Rechercher</Menu.Item>}

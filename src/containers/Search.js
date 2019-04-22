@@ -8,13 +8,13 @@ import Search from 'src/components/Search';
 // Action Creators
 // import { changeInput, submitForm } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   results: state.results,
   view: state.view,
   repoData: state.repoData,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

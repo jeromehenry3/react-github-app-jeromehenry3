@@ -8,9 +8,9 @@ const LogoutModal = ({
   displayLogoutModal, logout, toggleLogoutModal, confirmLogoutToUser,
 }) => {
   const handleLogout = () => {
-    toggleLogoutModal();
-    logout();
-    confirmLogoutToUser();
+    toggleLogoutModal(); // Closes the modal
+    logout(); // Logs out user
+    confirmLogoutToUser(); // displays a confirmation of logout
   };
   return (
     <Modal

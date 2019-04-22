@@ -5,7 +5,7 @@ import App from 'src/components/App';
 // Action Creators
 
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   message: state.message,
   isUserConnected: state.isUserConnected,
   displayLogoutModal: state.displayLogoutModal,
@@ -13,7 +13,7 @@ const mapStateToProps = (state, ownProps) => ({
   repoURL: state.repoURL,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

@@ -9,15 +9,13 @@ import Welcome from 'src/components/Welcome';
 // import { } from 'src/store/reducer';
 import { latestUpdatedRepos, lastStarsRepos } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   userData: state.userData,
   lastReposList: latestUpdatedRepos(state),
   lastStarsList: lastStarsRepos(state),
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-
-});
+const mapDispatchToProps = () => ({});
 
 export default connect(
   mapStateToProps,

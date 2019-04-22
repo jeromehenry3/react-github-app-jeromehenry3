@@ -8,7 +8,8 @@ import {
 import './styles.scss';
 
 const Login = ({
-  loginInput, stayConnected, loginMessage, changeInput, onSubmitForm, toggleStayConnectedCheckbox, status,
+  loginInput, stayConnected, loginMessage, changeInput,
+  onSubmitForm, toggleStayConnectedCheckbox, status,
 }) => {
   const handleChangeInput = event => changeInput(event.target.value);
   const handleSubmit = () => (loginInput !== '') && onSubmitForm();
@@ -17,7 +18,7 @@ const Login = ({
     <Container>
       <h1>Bienvenue sur l'appli de recherche sur Github !</h1>
       <p>Pour vous connecter au service, veuillez entrer votre token personnel Github.</p>
-      <p>C'est un code, unique et personnel, 
+      <p>C'est un code, unique et personnel,&nbsp
       qui permet de se logger sans avoir à saisir mail ou mdp.
       </p>
       <p>Pour créer le votre: <a href="https://github.com/settings/tokens">https://github.com/settings/tokens</a></p>
@@ -44,6 +45,7 @@ Login.propTypes = {
   onSubmitForm: PropTypes.func.isRequired,
   toggleStayConnectedCheckbox: PropTypes.func.isRequired,
   loginMessage: PropTypes.string.isRequired,
+  status: PropTypes.string.isRequired,
 };
 
 export default Login;
