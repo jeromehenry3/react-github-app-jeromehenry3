@@ -66,7 +66,8 @@ const filterFieldsInObject = (initialObject, fieldsToKeep) => {
 const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
   object => filterFieldsInObject(object, fieldsToKeep),
 );
-  // To delete an
+  // To delete a repo in an array, filtering it by custom prop 
+  // (used for removing favorite from the state)
 const deleteRepoFromArrayByProp = (array, prop, repoProp) => (
   array.filter(repo => repo[prop] !== repoProp)
 );
@@ -213,6 +214,7 @@ export const submitForm = input => ({
   input,
 });
 export const receivedData = (data) => { // Data d'une requête de repos
+  // Fileds to store in the state
   const reposFieldsToFilter = ['id', 'name', 'full_name', 'owner', 'description', 'url', 'html_url', 'language'];
   const filteredItems = filterFieldsInArrayOfObjects(data.items, reposFieldsToFilter);
   const newData = { ...data, items: filteredItems };
@@ -231,6 +233,7 @@ export const getRepoData = repoURL => ({
   repoURL,
 });
 export const storeRepoData = (repoData) => {
+  // Field to store in the state
   const fieldsToFilter = ['id', 'name', 'full_name', 'private', 'language', 'description', 'url', 'created_at', 'updated_at', 'owner'];
   return {
     type: STORE_REPO_DATA,
