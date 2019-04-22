@@ -66,7 +66,7 @@ const filterFieldsInObject = (initialObject, fieldsToKeep) => {
 const filterFieldsInArrayOfObjects = (initialArray, fieldsToKeep) => initialArray.map(
   object => filterFieldsInObject(object, fieldsToKeep),
 );
-  // To delete a repo in an array, filtering it by custom prop 
+  // To delete a repo in an array, filtering it by custom prop
   // (used for removing favorite from the state)
 const deleteRepoFromArrayByProp = (array, prop, repoProp) => (
   array.filter(repo => repo[prop] !== repoProp)
@@ -77,7 +77,6 @@ const deleteRepoFromArrayByProp = (array, prop, repoProp) => (
  */
 const reducer = (state = initialState, action = {}) => {
   switch (action.type) {
-
     case CHANGE_INPUT:
       return {
         ...state,
@@ -134,7 +133,7 @@ const reducer = (state = initialState, action = {}) => {
         loginInput: '',
         loginMessage: 'connexion en cours',
       };
-    case TOGGLE_LOGOUT_MODAL: // 
+    case TOGGLE_LOGOUT_MODAL:
       return {
         ...state,
         displayLogoutModal: !state.displayLogoutModal,
