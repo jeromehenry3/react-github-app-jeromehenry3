@@ -8,7 +8,7 @@ import ReposResults from 'src/components/Search/ReposResults';
 // Action Creators
 import { fetchMoreResults, getRepoData, redirect } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   results: state.results,
   page: state.resultsPage,
   status: state.status,
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => ({
   redirect: state.redirect,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   fetchMoreResults: (query, pageNumber) => {
     dispatch(fetchMoreResults(query, pageNumber));
   },

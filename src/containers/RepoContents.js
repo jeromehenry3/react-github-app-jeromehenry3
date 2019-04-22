@@ -8,12 +8,12 @@ import RepoContents from 'src/components/Search/RepoContents';
 // Action Creators
 import { starRepo, unStarRepo } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   repoData: state.repoData,
 
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   starRepo: (url) => {
     dispatch(starRepo(url));
   },

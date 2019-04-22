@@ -37,7 +37,6 @@ const App = ({ message, isUserConnected }) => (
         isUserConnected ? (<ReposResults />) : (<Redirect to="/" />)
       )}
     />
-    
     <Route
       path="/repo/:owner/:repoURL"
       render={({ match, ...rest }) => (

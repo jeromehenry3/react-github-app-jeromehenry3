@@ -8,11 +8,11 @@ import SearchBar from 'src/components/Search/SearchBar';
 // Action Creators
 import { changeInput, submitForm } from 'src/store/reducer';
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = state => ({
   input: state.input,
 });
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
+const mapDispatchToProps = dispatch => ({
   changeInput: (inputChangeEvent) => {
     dispatch(changeInput(inputChangeEvent.target.value));
   },
