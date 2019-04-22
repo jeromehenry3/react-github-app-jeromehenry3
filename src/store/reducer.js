@@ -1,7 +1,7 @@
 /**
  * Initial State
  */
-// import { initialState } from 'src/data/initialState';
+
 // d0a136a291cc0267e5b6158aa374039a8ee83192
 const initialState = {
   input: '', // values: '' || string
@@ -17,7 +17,7 @@ const initialState = {
   repoURL: '',
   redirect: false,
   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
-  stayConnected: false,
+  // stayConnected: false, will be used to know if we should store the token in ls
   token: '',
   userData: undefined,
   userRepos: [],
