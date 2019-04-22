@@ -7,7 +7,7 @@ import {
 import RepoCard from 'src/components/RepoCard';
 import './styles.scss';
 // importé depuis https://github.com/ozh/github-colors/blob/master/LICENSE
-import Colors from './colors.json';
+import Colors from 'src/data/colors.json';
 
 
 class RepoContents extends Component {
@@ -102,7 +102,6 @@ RepoContents.propTypes = {
   repoData: PropTypes.object.isRequired,
   starRepo: PropTypes.func.isRequired,
   unStarRepo: PropTypes.func.isRequired,
-  html_url: PropTypes.string.isRequired,
 };
 
 export default RepoContents;

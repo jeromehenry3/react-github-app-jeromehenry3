@@ -86,15 +86,19 @@ class ReposResults extends Component {
 
 
 ReposResults.propTypes = {
-  results: PropTypes.shape(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
-      owner: PropTypes.object.isRequired,
-      url: PropTypes.string.isRequired,
-    }).isRequired,
-  ).isRequired,
+  results: PropTypes.oneOfType([
+    PropTypes.shape(
+      PropTypes.shape({
+        id: PropTypes.number.isRequired,
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        owner: PropTypes.object.isRequired,
+        url: PropTypes.string.isRequired,
+      }).isRequired,
+    ),
+    PropTypes.bool,
+  ]).isRequired,
+
   fetchMoreResults: PropTypes.func.isRequired,
   redirectToRepo: PropTypes.func.isRequired,
   page: PropTypes.number.isRequired,

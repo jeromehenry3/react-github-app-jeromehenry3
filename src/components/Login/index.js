@@ -29,7 +29,9 @@ const Login = ({
           <Input type="password" placeholder="Token Github" loading={connecting} disabled={connecting} onChange={handleChangeInput} value={loginInput} />
         </Form.Field>
         <Form.Field>
-          <Checkbox label="Rester connecté" onChange={toggleStayConnectedCheckbox} disabled={connecting} checked={stayConnected} />
+          {/* Checkbox prévue pour enregistrer le token dans le LocalStorage du client,
+           afin de rendre les futures connexions plus rapides (TODO) */}
+          <Checkbox label="Rester connecté" onChange={toggleStayConnectedCheckbox} disabled checked={stayConnected} />
         </Form.Field>
         <Button type="submit" loading={connecting} disabled={connecting}>Envoyer</Button>
         {loginMessage && <Message>{loginMessage}</Message>}
