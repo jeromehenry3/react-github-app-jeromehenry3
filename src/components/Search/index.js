@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SearchBar from 'src/containers/Search/SearchBar';
-import ReposResults from 'src/containers/Search/ReposResults';
-// import RepoContents from 'src/containers/Search/RepoContents';
+import SearchBar from 'src/containers/SearchBar';
+import ReposResults from 'src/containers/ReposResults';
+
 import './styles.scss';
 
 const Search = ({ results }) => (

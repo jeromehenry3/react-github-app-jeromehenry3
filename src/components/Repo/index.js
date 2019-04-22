@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import RepoContents from 'src/containers/Search/RepoContents';
+import RepoContents from 'src/containers/RepoContents';
 import AppMessage from 'src/components/AppMessage';
 import {
   Container,

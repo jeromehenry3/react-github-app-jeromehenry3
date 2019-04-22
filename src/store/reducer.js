@@ -5,23 +5,23 @@
 // d0a136a291cc0267e5b6158aa374039a8ee83192
 const initialState = {
   input: '', // values: '' || string
-  isUserConnected: false,
-  displayLogoutModal: false,
+  isUserConnected: false, // bool
+  displayLogoutModal: false, // bool
   loginInput: 'd0a136a291cc0267e5b6158aa374039a8ee83192',
-  loginMessage: '',
+  loginMessage: '', // string
   message: '', // values: '' || string
   repoData: false, // details of a repo, values: false || object
   results: false, // values: false || object
   resultsPage: false, // values: false || int >= 1
   query: false, // values: false || string
-  repoURL: '',
-  redirect: false,
+  repoURL: '', // string
+  redirect: false, // bool
   status: 'normal', // values: normal, ajax-waiting, ajax-waiting-repo, connecting
   // stayConnected: false, will be used to know if we should store the token in ls
-  token: '',
-  userData: undefined,
-  userRepos: [],
-  starred: [],
+  token: '', // string
+  userData: undefined, // undefined / object
+  userRepos: [], // array
+  starred: [], // array
   view: 'search', // values: search, repo-contents
 };
 
@@ -108,7 +108,7 @@ const reducer = (state = initialState, action = {}) => {
         ...state,
         status: 'ajax-waiting',
       };
-    case GET_REPO_DATA:
+    case GET_REPO_DATA: // init axios query for repo
       return {
         ...state,
         status: 'ajax-waiting-repo',
@@ -133,7 +133,7 @@ const reducer = (state = initialState, action = {}) => {
         loginInput: '',
         loginMessage: 'connexion en cours',
       };
-    case TOGGLE_LOGOUT_MODAL:
+    case TOGGLE_LOGOUT_MODAL: // 
       return {
         ...state,
         displayLogoutModal: !state.displayLogoutModal,
@@ -187,9 +187,6 @@ const reducer = (state = initialState, action = {}) => {
         stayConnected: !state.stayConnected,
       };
     case STORE_USER_DATA:
-      // {
-      //   const { login,  }
-      // }
       return {
         ...state,
         isUserConnected: true,

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Card, Message } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 
-import SearchBar from 'src/containers/Search/SearchBar';
+import SearchBar from 'src/containers/SearchBar';
 import RepoCard from 'src/components/RepoCard';
 import PlaceholderCard from './PlaceholderCard';
 

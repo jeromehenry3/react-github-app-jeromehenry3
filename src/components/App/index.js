@@ -14,9 +14,8 @@ import About from 'src/components/About';
 import AppMessage from 'src/components/AppMessage';
 import Login from 'src/containers/Login';
 import Nav from 'src/containers/Nav';
-import ReposResults from 'src/containers/Search/ReposResults';
+import ReposResults from 'src/containers/ReposResults';
 import Repo from 'src/containers/Repo';
-import Search from 'src/containers/Search';
 import Welcome from 'src/containers/Welcome';
 
 // Styles et assets
@@ -25,7 +24,7 @@ import './app.sass';
 /**
  * Code
  */
-const App = ({ message, isUserConnected, results, repoURL }) => (
+const App = ({ message, isUserConnected }) => (
   <div id="app">
     <Nav />
     {isUserConnected
