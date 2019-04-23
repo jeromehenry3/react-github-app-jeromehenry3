@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { Menu } from 'semantic-ui-react';
 import LogoutModal from 'src/containers/LogoutModal';
 
@@ -8,9 +8,9 @@ import './styles.scss';
 
 const Nav = ({ isUserConnected, toggleLogoutModal }) => (
   <Menu pointing secondary>
-    <Menu.Item name="welcome" as={Link} to="/">Bienvenue</Menu.Item>
-    {isUserConnected && <Menu.Item name="search" as={Link} to="/search">Rechercher</Menu.Item>}
-    <Menu.Item name="about" as={Link} to="/about">A propos</Menu.Item>
+    <Menu.Item name="welcome" as={NavLink} exact to="/">Bienvenue</Menu.Item>
+    {isUserConnected && <Menu.Item name="search" as={NavLink} to="/search">Rechercher</Menu.Item>}
+    <Menu.Item name="about" as={NavLink} to="/about">A propos</Menu.Item>
 
     <Menu.Menu position="right">
       {isUserConnected && (
