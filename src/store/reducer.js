@@ -7,7 +7,7 @@ const initialState = {
   input: '', // values: '' || string
   isUserConnected: false, // bool
   displayLogoutModal: false, // bool
-  loginInput: 'd0a136a291cc0267e5b6158aa374039a8ee83192',
+  loginInput: '',
   loginMessage: '', // string
   message: '', // values: '' || string
   repoData: false, // details of a repo, values: false || object
