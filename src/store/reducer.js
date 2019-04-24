@@ -1,3 +1,5 @@
+import { Input } from "semantic-ui-react";
+
 /**
  * Initial State
  */
@@ -72,6 +74,8 @@ const deleteRepoFromArrayByProp = (array, prop, repoProp) => (
   array.filter(repo => repo[prop] !== repoProp)
 );
 
+const filterDangerousInput = input => (input.toLowerCase() === ('jquery') ? '' : input);
+
 /**
  * Reducer
  */
@@ -80,7 +84,7 @@ const reducer = (state = initialState, action = {}) => {
     case CHANGE_INPUT:
       return {
         ...state,
-        input: action.input,
+        input: filterDangerousInput(action.input),
       };
     case SUBMIT_FORM: // manages state after 'first' query sent to the API
       return {
