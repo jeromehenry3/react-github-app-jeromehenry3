@@ -41,7 +41,7 @@ const LittleList = ({ list, cat }) => (
               as={Link}
               to={
                 {
-                  pathname: `/repo/${fullName}`,
+                  pathname: `/github-app/repo/${fullName}`,
                   state: { repoURL: fullName },
                 }
               }

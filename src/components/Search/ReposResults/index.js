@@ -50,7 +50,7 @@ class ReposResults extends Component {
     const {
       results, page, repoURL, redirect,
     } = this.props;
-    if (redirect) return (<Redirect to={`/repo/${repoURL}`} />);
+    if (redirect) return (<Redirect to={`/github-app/repo/${repoURL}`} />);
     return (
       <div id="search">
 

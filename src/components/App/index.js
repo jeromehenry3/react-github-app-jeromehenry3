@@ -28,17 +28,17 @@ const App = ({ message, isUserConnected }) => (
   <div id="app">
     <Nav />
     {isUserConnected
-      ? <Route exact path="/" component={Welcome} />
-      : <Route exact path="/" component={Login} /> }
-    <Route path="/about" component={About} />
+      ? <Route exact path="/github-app/" component={Welcome} />
+      : <Route exact path="/github-app/" component={Login} /> }
+    <Route path="/github-app/about" component={About} />
     <Route
-      path="/search"
+      path="/github-app/search"
       render={() => (
-        isUserConnected ? (<ReposResults />) : (<Redirect to="/" />)
+        isUserConnected ? (<ReposResults />) : (<Redirect to="/github-app/" />)
       )}
     />
     <Route
-      path="/repo/:owner/:repoURL"
+      path="/github-app/repo/:owner/:repoURL"
       render={({ match, ...rest }) => (
         (isUserConnected)
           ? (<Repo match={match} {...rest} />)
